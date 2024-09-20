@@ -50,7 +50,9 @@ export function SidebarDemo() {
             <div>
               <div className="mb-4 px-2 flex justify-start">
                 <SignedOut>
-                  <SignInButton className="text-sm font-bold" />
+                  <SignInButton>
+                    <button className="text-sm font-bold">Sign In</button>
+                  </SignInButton>
                 </SignedOut>
               </div>
               <div className="px-4">
