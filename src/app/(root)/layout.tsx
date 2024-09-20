@@ -1,16 +1,13 @@
-import React from "react";
+import { SidebarDemo } from "../../../components/shared/sideNavBar";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <main>
-      <div>
-        <h1 className="font-bold text-4xl">
-          Whe recognition of the inherent dignity
-        </h1>
-        <p>Customiza tus imagenes con IA para tu ecommerce</p>
+    <div className="h-screen flex">
+      <div className="flex-shrink-0">
+        <SidebarDemo />
       </div>
-      {children}
-    </main>
+      <div className="flex-grow overflow-auto">{children}</div>
+    </div>
   );
 };
 
