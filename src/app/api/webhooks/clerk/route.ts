@@ -66,7 +66,7 @@ export async function POST(req: Request) {
       email: email_addresses[0].email_address,
       firstName: first_name ?? "",
       lastName: last_name ?? "",
-      username: username || first_name,
+      username: username!,
       photo: image_url,
     };
 
@@ -91,7 +91,7 @@ export async function POST(req: Request) {
     const user = {
       firstName: first_name ?? "",
       lastName: last_name ?? "",
-      username: username || first_name,
+      username: username!,
       photo: image_url,
     };
 
