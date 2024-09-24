@@ -5,7 +5,7 @@ import { Sidebar, SidebarBody, SidebarLink } from "../ui/sidebar";
 import { IconArrowLeft, IconHeart, IconHome } from "@tabler/icons-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { cn } from "@/lib/utils";
+import { cn } from "@/src/lib/utils";
 import ThemeToggle from "./ThemeToggle";
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 import { CircleDollarSign, LogIn } from "lucide-react";
