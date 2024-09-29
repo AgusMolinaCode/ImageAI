@@ -89,7 +89,7 @@ export function SidebarDemo() {
 export const Logo = () => {
   return (
     <Link
-      href="#"
+      href="/"
       className="font-normal flex space-x-2 items-center text-sm text-foreground py-1 relative z-20"
     >
       <motion.span
@@ -125,7 +125,7 @@ export const Sign = () => {
 export const LogoIcon = () => {
   return (
     <Link
-      href="#"
+      href="/"
       className="font-normal flex space-x-2 items-center text-sm text-foreground py-1 relative z-20"
     >
       <p className="text-xl font-bold text-blue-400">AI</p>
@@ -136,7 +136,7 @@ export const LogoIcon = () => {
 export const SignIcon = () => {
   return (
     <Link
-      href="#"
+      href="*"
       className="font-normal flex space-x-2 items-center text-sm text-foreground py-1 relative z-20"
     >
       <LogIn className="h-5 w-5 flex-shrink-0" />
