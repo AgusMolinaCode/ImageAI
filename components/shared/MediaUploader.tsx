@@ -5,7 +5,7 @@ import React from "react";
 import { useToast } from "@/hooks/use-toast";
 import { CldImage, CldUploadWidget } from "next-cloudinary";
 import Image from "next/image";
-import { dataUrl, getImageSize } from "@/src/lib/utils";
+import { dataUrl, getImageSize } from "@/lib/utils";
 import { PlaceholderValue } from "next/dist/shared/lib/get-img-props";
 
 interface MediaUploaderProps {

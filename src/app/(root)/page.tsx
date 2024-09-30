@@ -1,5 +1,6 @@
 import { Collection } from "@/components/shared/Collection"
-import { getAllImages } from "@/src/lib/actions/image.actions"
+import { getAllImages } from "@/lib/actions/image.actions"
+import React from "react";
 
 
 const Home = async ({ searchParams }: SearchParamProps) => {
