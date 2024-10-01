@@ -159,6 +159,15 @@ export const transformationTypes = {
     },
     icon: "filter.svg",
   },
+  personalization: {
+    type: "personalization",
+    title: "Personalization",
+    subTitle: "Add text to images for personalization",
+    config: {
+      personalization: { prompt: "", text: "", color: "", font: "" },
+    },
+    icon: "text.svg",
+  },
 };
 
 export const aspectRatioOptions = {
