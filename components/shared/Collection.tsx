@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/pagination";
 import { transformationTypes } from "@/constants";
 import { IImage } from "@/lib/database/models/image.models";
+import { Key } from "react";
 import { formUrlQuery } from "@/lib/utils";
 
 import { Button } from "../ui/button";
@@ -54,10 +55,10 @@ export const Collection = ({
         {hasSearch && <Search />}
       </div>
 
-      {images?.length > 0 ? (
+      {images.length > 0 ? (
         <ul className="collection-list">
           {images.map((image) => (
-            <Card image={image} key={image.author._id} />
+            <Card image={image} key={image._id as Key} />
           ))}
         </ul>
       ) : (
@@ -98,7 +99,7 @@ export const Collection = ({
 const Card = ({ image }: { image: IImage }) => {
   return (
     <li>
-      <Link href={`/transformations/${image.author._id}`} className="collection-card">
+      <Link href={`/transformations/${image._id}`} className="collection-card">
         <CldImage
           src={image.publicId}
           alt={image.title}
