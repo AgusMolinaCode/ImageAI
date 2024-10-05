@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { Sidebar, SidebarBody, SidebarLink } from "../ui/sidebar";
-import { IconArrowLeft, IconHeart, IconHome } from "@tabler/icons-react";
+import { IconHome } from "@tabler/icons-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
@@ -16,6 +16,7 @@ import {
   BookImage,
   ImageOff,
   Sparkles,
+  LayoutDashboard,
 } from "lucide-react";
 
 export function SidebarDemo() {
@@ -61,17 +62,24 @@ export function SidebarDemo() {
 
   const link = [
     {
+      label: "My Logos",
+      href: "/profile",
+      icon: (
+        <LayoutDashboard className="text-foreground h-5 w-5 flex-shrink-0" />
+      ),
+    },
+    {
       label: "Profile",
       href: "/profile",
       icon: (
-        <CircleUserRound className="text-foreground h-7 w-7 flex-shrink-0" />
+        <CircleUserRound className="text-foreground h-5 w-5 flex-shrink-0" />
       ),
     },
     {
       label: "Buy Credits",
       href: "/credits",
       icon: (
-        <CircleDollarSign className="text-foreground h-7 w-7 flex-shrink-0" />
+        <CircleDollarSign className="text-foreground h-5 w-5 flex-shrink-0" />
       ),
     },
   ];
@@ -107,13 +115,13 @@ export function SidebarDemo() {
                 ))}
               </SignedIn>
             </div>
-            <div className="px-4">
+            <div className="px-3">
               <SignedIn>
                 <UserButton />
               </SignedIn>
             </div>
 
-            <div className="flex items-center justify-between pt-2 px-4">
+            <div className="flex items-center justify-between pt-2 px-[0.6rem]">
               <ThemeToggle />
             </div>
           </div>
