@@ -8,7 +8,15 @@ import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import ThemeToggle from "./ThemeToggle";
 import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
-import { CircleDollarSign, LogIn } from "lucide-react";
+import { CircleDollarSign, CircleUserRound, LogIn } from "lucide-react";
+import {
+  PaintBucket,
+  Images,
+  ImageUp,
+  BookImage,
+  ImageOff,
+  Sparkles,
+} from "lucide-react";
 
 export function SidebarDemo() {
   const links = [
@@ -18,18 +26,47 @@ export function SidebarDemo() {
       icon: <IconHome className="text-foreground h-5 w-5 flex-shrink-0" />,
     },
     {
-      label: "Credits",
-      href: "/credits",
-      icon: <IconHeart className="text-foreground h-5 w-5 flex-shrink-0" />,
+      label: "Customize",
+      href: "/profile",
+      icon: (
+        <Sparkles className="dark:text-yellow-300 text-blue-600 h-5 w-5 flex-shrink-0" />
+      ),
     },
     {
-      label: "Profile",
-      href: "/profile",
-      icon: <IconArrowLeft className="text-foreground h-5 w-5 flex-shrink-0" />,
+      label: "Background Remove",
+      href: "/transformations/add/removeBackground",
+      icon: <Images className="text-foreground h-5 w-5 flex-shrink-0" />,
+    },
+    {
+      label: "Image Restore",
+      href: "/transformations/add/restore",
+      icon: <ImageUp className="text-foreground h-5 w-5 flex-shrink-0" />,
+    },
+    {
+      label: "Generative Fill",
+      href: "/transformations/add/fill",
+      icon: <BookImage className="text-foreground h-5 w-5 flex-shrink-0" />,
+    },
+    {
+      label: "Image Remove",
+      href: "/transformations/add/remove",
+      icon: <ImageOff className="text-foreground h-5 w-5 flex-shrink-0" />,
+    },
+    {
+      label: "Image Recolor",
+      href: "/transformations/add/recolor",
+      icon: <PaintBucket className="text-foreground h-5 w-5 flex-shrink-0" />,
     },
   ];
 
   const link = [
+    {
+      label: "Profile",
+      href: "/profile",
+      icon: (
+        <CircleUserRound className="text-foreground h-7 w-7 flex-shrink-0" />
+      ),
+    },
     {
       label: "Buy Credits",
       href: "/credits",
