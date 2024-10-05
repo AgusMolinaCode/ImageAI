@@ -56,6 +56,33 @@ declare type UpdateImageParams = {
   path: string;
 };
 
+// ====== LOGO PARAMS
+declare type AddLogoParams = {
+  logo: {
+    title: string;
+    publicId: string;
+    secureURL: string;
+    width: number;
+    height: number;
+  };
+  userId: string;
+  path: string;
+};
+
+declare type UpdateLogoParams = {
+  logo: {
+    _id: string;
+    title: string;
+    publicId: string;
+    secureURL: string;
+    width: number;
+    height: number;
+  };
+  userId: string;
+  path: string;
+};
+
+// ====== TRANSFORMATION PARAMS
 declare type Transformations = {
   restore?: boolean;
   fillBackground?: boolean;
@@ -126,6 +153,25 @@ declare type TransformationFormProps = {
   creditBalance: number;
   data?: IImage | null;
   config?: Transformations | null;
+};
+
+// ====== LOGO PARAMS
+declare type AddLogoParams = {
+  logo: {
+    title: string;
+    publicId: string;
+    secureURL: string;
+    width: number;
+    height: number;
+  };
+  userId: string;
+  path: string;
+};
+
+declare type LogoFormProps = {
+  action: "Add";
+  userId: string;
+  data?: IImage | null;
 };
 
 declare type TransformedImageProps = {

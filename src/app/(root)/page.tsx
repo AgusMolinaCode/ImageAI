@@ -4,6 +4,10 @@ import { Collection } from "@/components/shared/Collection";
 import { getAllImages } from "@/lib/actions/image.actions";
 import { getCldOgImageUrl } from "next-cloudinary";
 import Image from "next/image";
+import LogoForm from "@/components/shared/LogoForm";
+import { auth } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
+import { getUserById } from "@/lib/actions/user.actions";
 
 const imageUrl = getCldOgImageUrl({
   src: "imageai/xbdwclzkkfog1sdjb15k",
@@ -26,9 +30,10 @@ const imageUrl = getCldOgImageUrl({
         gravity: "north_east",
       },
     },
-   
+
     {
-      publicId: "imageai/dc30b1dd-ea1d-4f06-91c7-aa92afed96d2-removebg-preview_fubmwl",
+      publicId:
+        "imageai/dc30b1dd-ea1d-4f06-91c7-aa92afed96d2-removebg-preview_fubmwl",
       width: 180,
       height: 100,
       position: {
@@ -36,8 +41,7 @@ const imageUrl = getCldOgImageUrl({
         y: 10,
         gravity: "south_east",
       },
-      
-    }
+    },
   ],
   // removeBackground: true,
 });
@@ -46,7 +50,13 @@ const Home = async ({ searchParams }: SearchParamProps) => {
   const page = Number(searchParams?.page) || 1;
   const searchQuery = (searchParams?.query as string) || "";
 
-  const images = await getAllImages({ page, searchQuery });
+  const { userId } = auth();
+
+  if (!userId) redirect("/sign-in");
+
+  const user = await getUserById(userId);
+
+  // const images = await getAllImages({ page, searchQuery });
 
   return (
     <>
@@ -63,12 +73,14 @@ const Home = async ({ searchParams }: SearchParamProps) => {
         />
         </section> */}
 
-      <Image
+      {/* <Image
         src={imageUrl}
         width={800}
         height={800}
         alt="Picture of the author"
-      />
+      /> */}
+
+      <LogoForm action="Add" userId={user._id} />
     </>
   );
 };
