@@ -63,7 +63,7 @@ export function SidebarDemo() {
   const link = [
     {
       label: "My Logos",
-      href: "/profile",
+      href: "/logos",
       icon: (
         <LayoutDashboard className="text-foreground h-5 w-5 flex-shrink-0" />
       ),

@@ -80,7 +80,7 @@ const Home = async ({ searchParams }: SearchParamProps) => {
         alt="Picture of the author"
       /> */}
 
-      <LogoForm action="Add" userId={user._id} />
+      {/* <LogoForm action="Add" userId={user._id} /> */}
     </>
   );
 };

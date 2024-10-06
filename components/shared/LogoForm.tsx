@@ -64,13 +64,13 @@ const LogoForm = ({ data, userId }: LogoFormProps) => {
       const newLogo = await addLogo({
         logo: logoData,
         userId,
-        path: "/",
+        path: "/logos",
       });
 
       if (newLogo) {
         form.reset();
         setImage(null);
-        router.push(`/`);
+        router.push(`/logos`);
       }
     } catch (error) {
       console.error(error);
