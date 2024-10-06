@@ -24,11 +24,15 @@ const Credits = async () => {
       />
 
       <section>
-        <ul className="credits-list">
+        <ul className="mt-11 grid grid-cols-1 gap-5 sm:grid-cols-2 md:gap-9 xl:grid-cols-3 max-w-7xl items-center mx-auto px-1">
           {plans.map((plan) => (
-            <li key={plan.name} className="credits-item">
+            <li
+              key={plan.name}
+              className="w-full rounded-[16px] border-2 border-purple-200/20 p-8 shadow-xl shadow-purple-200/20"
+              style={{ backgroundColor: plan.background }}
+            >
               <div className="flex-center flex-col gap-3">
-                <Image src={plan.icon} alt="check" width={50} height={50} />
+                
                 <p className="p-20-semibold mt-2 text-purple-500">
                   {plan.name}
                 </p>

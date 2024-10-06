@@ -131,7 +131,7 @@ export async function getAllLogos({ limit = 6, page = 1, searchQuery = '' }: {
 
 // GET LOGOS BY USER
 export async function getUserLogos({
-  limit = 9,
+  limit = 6,
   page = 1,
   userId,
 }: {
