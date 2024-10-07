@@ -65,9 +65,9 @@ const Checkout = ({
         <Button
           type="submit"
           role="link"
-          className="w-full rounded-full bg-purple-gradient bg-cover"
+          className="flex justify-start bg-black rounded-2xl hover:bg-gray-900"
         >
-          Buy Credit
+          Buy Credit with Stripe
         </Button>
       </section>
     </form>

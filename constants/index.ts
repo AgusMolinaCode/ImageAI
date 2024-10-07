@@ -48,6 +48,7 @@ export const plans = [
     icon: "/assets/icons/free-plan.svg",
     price: 0,
     credits: 20,
+    description: "Free Consumable",
     background: "#F2B2D7",
     inclusions: [
       {
@@ -74,6 +75,7 @@ export const plans = [
     icon: "/assets/icons/free-plan.svg",
     price: 40,
     credits: 120,
+    description: "Ideal for small businesses",
     background: "#7BDBD1",
     inclusions: [
       {
@@ -100,6 +102,7 @@ export const plans = [
     icon: "/assets/icons/free-plan.svg",
     price: 199,
     credits: 2000,
+    description: "Best value for large businesses",
     background: "#FFBC01",
     inclusions: [
       {

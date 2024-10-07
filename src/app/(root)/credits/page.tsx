@@ -4,7 +4,6 @@ import { auth } from "@clerk/nextjs/server";
 import Image from "next/image";
 import { redirect } from "next/navigation";
 import Header from "@/components/shared/Header";
-import { Button } from "@/components/ui/button";
 import { plans } from "@/constants";
 import { getUserById } from "@/lib/actions/user.actions";
 import Checkout from "@/components/shared/Checkout";
@@ -31,13 +30,17 @@ const Credits = async () => {
               className="w-full rounded-[16px] border-2 border-purple-200/20 p-8 shadow-xl shadow-purple-200/20"
               style={{ backgroundColor: plan.background }}
             >
-              <div className="flex-center flex-col gap-3">
-                
-                <p className="p-20-semibold mt-2 text-purple-500">
-                  {plan.name}
+              <div className="flex-start flex-col gap-3">
+                <p className="font-bold mt-2 text-black">{plan.name}</p>
+                <p className="font-semibold text-6xl text-black mt-6">
+                  ${plan.price}
                 </p>
-                <p className="h1-semibold text-dark-600">${plan.price}</p>
-                <p className="p-16-regular">{plan.credits} Credits</p>
+                <p className="font-semibold text-md text-gray-500 mt-2">
+                  {plan.description}
+                </p>
+                <p className="font-bold text-black text-2xl mt-2">
+                  {plan.credits} Credits
+                </p>
               </div>
 
               {/* Inclusions */}
@@ -52,18 +55,16 @@ const Credits = async () => {
                         inclusion.isIncluded ? "check.svg" : "cross.svg"
                       }`}
                       alt="check"
-                      width={24}
-                      height={24}
+                      width={28}
+                      height={28}
                     />
-                    <p className="p-16-regular">{inclusion.label}</p>
+                    <p className="text-black font-medium">{inclusion.label}</p>
                   </li>
                 ))}
               </ul>
 
               {plan.name === "Free" ? (
-                <Button variant="outline" className="credits-btn">
-                  Free Consumable
-                </Button>
+                <p className="text-start py-2 text-gray-500 font-medium">Free Consumable</p>
               ) : (
                 <SignedIn>
                   <Checkout

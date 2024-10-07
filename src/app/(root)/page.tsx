@@ -60,9 +60,10 @@ const Home = async ({ searchParams }: SearchParamProps) => {
 
   return (
     <>
-      <section className="">
-        <h1 className="">Unleash Your Creative Vision with Imaginify</h1>
-      </section>
+      
+        <h1 className="text-7xl text-center mt-10 font-bold">Image AI</h1>
+        <p className="text-center mt-5 text-2xl">Empowering your eCommerce with advanced image editing tools</p>
+     
 
       {/* <section className="sm:mt-12">
         <Collection 
