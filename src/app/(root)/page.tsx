@@ -9,42 +9,7 @@ import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { getUserById } from "@/lib/actions/user.actions";
 
-const imageUrl = getCldOgImageUrl({
-  src: "imageai/xbdwclzkkfog1sdjb15k",
-  width: 800,
-  height: 800,
-  overlays: [
-    {
-      width: 800,
-      crop: "fit",
-      text: {
-        color: "black",
-        fontFamily: "Montserrat",
-        fontSize: 80,
-        fontWeight: "bold",
-        text: "Sale",
-      },
-      position: {
-        x: 10,
-        y: 10,
-        gravity: "north_east",
-      },
-    },
 
-    {
-      publicId:
-        "imageai/dc30b1dd-ea1d-4f06-91c7-aa92afed96d2-removebg-preview_fubmwl",
-      width: 180,
-      height: 100,
-      position: {
-        x: 10,
-        y: 10,
-        gravity: "south_east",
-      },
-    },
-  ],
-  // removeBackground: true,
-});
 
 const Home = async ({ searchParams }: SearchParamProps) => {
   const page = Number(searchParams?.page) || 1;
@@ -74,14 +39,8 @@ const Home = async ({ searchParams }: SearchParamProps) => {
         />
         </section> */}
 
-      {/* <Image
-        src={imageUrl}
-        width={800}
-        height={800}
-        alt="Picture of the author"
-      /> */}
+      {/*  */}
 
-      {/* <LogoForm action="Add" userId={user._id} /> */}
     </>
   );
 };

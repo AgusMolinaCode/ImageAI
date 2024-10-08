@@ -130,30 +130,16 @@ export async function getAllLogos({ limit = 6, page = 1, searchQuery = '' }: {
 }
 
 // GET LOGOS BY USER
-export async function getUserLogos({
-  limit = 6,
-  page = 1,
-  userId,
-}: {
-  limit?: number;
-  page: number;
-  userId: string;
-}) {
+export async function getUserLogos({ userId }: { userId: string }) {
   try {
     await connectToDatabase();
 
-    const skipAmount = (Number(page) - 1) * limit;
-
     const logos = await populateUser(Logo.find({ author: userId }))
       .sort({ updatedAt: -1 })
-      .skip(skipAmount)
-      .limit(limit);
-
-    const totalLogos = await Logo.find({ author: userId }).countDocuments();
+      .select('_id title publicId secureURL width height author createdAt updatedAt __v');
 
     return {
       data: JSON.parse(JSON.stringify(logos)),
-      totalPages: Math.ceil(totalLogos / limit),
     };
   } catch (error) {
     handleError(error);

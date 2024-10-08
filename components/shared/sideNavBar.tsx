@@ -28,7 +28,7 @@ export function SidebarDemo() {
     },
     {
       label: "Customize",
-      href: "/profile",
+      href: "/customization",
       icon: (
         <Sparkles className="dark:text-yellow-300 text-blue-600 h-5 w-5 flex-shrink-0" />
       ),
