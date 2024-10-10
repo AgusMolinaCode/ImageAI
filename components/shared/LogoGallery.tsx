@@ -1,8 +1,10 @@
 "use client";
-import React from "react";
-import { CldImage, getCldOgImageUrl } from "next-cloudinary";
+import React, { useState } from "react";
+import { getCldOgImageUrl } from "next-cloudinary";
 import Image from "next/image";
 import Header from "./Header";
+
+import LogoCustomizationForm from "./LogoCustomizationForm";
 
 interface LogoGalleryProps {
   logos: Array<{
@@ -16,6 +18,23 @@ interface LogoGalleryProps {
 }
 
 const LogoGallery: React.FC<LogoGalleryProps> = ({ logos }) => {
+  const [selectedLogo, setSelectedLogo] = useState<string | null>(null);
+  const [overlayText, setOverlayText] = useState<string>("Venta");
+  const [textPosition, setTextPosition] = useState<string>("north_east");
+  const [logoPosition, setLogoPosition] = useState<string>("south_east");
+
+  function onSubmit(values: {
+    texto: string;
+    logo: string;
+    posicionTexto: string;
+    posicionLogo: string;
+  }) {
+    setOverlayText(values.texto);
+    setSelectedLogo(values.logo);
+    setTextPosition(values.posicionTexto);
+    setLogoPosition(values.posicionLogo);
+  }
+
   const imageUrl = getCldOgImageUrl({
     src: "imageai/fosbhfi8ijduelnwio7u",
     width: 700,
@@ -29,55 +48,44 @@ const LogoGallery: React.FC<LogoGalleryProps> = ({ logos }) => {
           fontFamily: "Montserrat",
           fontSize: 80,
           fontWeight: "bold",
-          text: "Sale",
+          text: overlayText,
         },
         position: {
           x: 10,
           y: 10,
-          gravity: "north_east",
+          gravity: textPosition,
         },
       },
-
       {
-        publicId: "imageai/wklqvw90fg38tluyhola",
+        publicId: selectedLogo || "imageai/wklqvw90fg38tluyhola",
         width: 100,
         height: 100,
         position: {
           x: 10,
           y: 10,
-          gravity: "south_east",
+          gravity: logoPosition,
         },
       },
     ],
   });
+
   return (
     <>
       <Header
-        title="Customize Your Image"
+        title="Customize your image"
         subtitle="Add your logo to the image"
       />
-      <div className="flex justify-center items-center mt-10">
-        <div className="">
+      <div className="flex flex-col md:flex-row justify-center gap-4 my-8">
+        <div className="w-full md:w-1/2">
           <Image
             width={700}
             height={700}
             src={imageUrl}
-            alt="Main Image"
-            className="main-image"
+            alt="Imagen Principal"
+            className="w-[700px] h-[700px] object-cover"
           />
         </div>
-        {/* {logos.map((logo) => (
-        <div key={logo._id}>
-          <CldImage
-            width={200}
-            height={200}
-            src={logo.publicId}
-            alt={logo.title}
-            className="logo-image"
-          />
-          <p>{logo.title}</p>
-        </div>
-      ))} */}
+        <LogoCustomizationForm logos={logos} onSubmit={onSubmit} />
       </div>
     </>
   );
