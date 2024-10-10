@@ -22,17 +22,27 @@ const LogoGallery: React.FC<LogoGalleryProps> = ({ logos }) => {
   const [overlayText, setOverlayText] = useState<string>("Venta");
   const [textPosition, setTextPosition] = useState<string>("north_east");
   const [logoPosition, setLogoPosition] = useState<string>("south_east");
+  const [showText, setShowText] = useState<boolean>(true);
+  const [showLogo, setShowLogo] = useState<boolean>(true);
 
   function onSubmit(values: {
-    texto: string;
-    logo: string;
-    posicionTexto: string;
-    posicionLogo: string;
+    mostrarTexto: boolean;
+    texto?: string;
+    posicionTexto?: string;
+    mostrarLogo: boolean;
+    logo?: string;
+    posicionLogo?: string;
   }) {
-    setOverlayText(values.texto);
-    setSelectedLogo(values.logo);
-    setTextPosition(values.posicionTexto);
-    setLogoPosition(values.posicionLogo);
+    setShowText(values.mostrarTexto);
+    setShowLogo(values.mostrarLogo);
+    if (values.mostrarTexto && values.texto) {
+      setOverlayText(values.texto);
+      setTextPosition(values.posicionTexto || "north_east");
+    }
+    if (values.mostrarLogo && values.logo) {
+      setSelectedLogo(values.logo);
+      setLogoPosition(values.posicionLogo || "south_east");
+    }
   }
 
   const imageUrl = getCldOgImageUrl({
@@ -40,32 +50,38 @@ const LogoGallery: React.FC<LogoGalleryProps> = ({ logos }) => {
     width: 700,
     height: 700,
     overlays: [
-      {
-        width: 700,
-        crop: "fit",
-        text: {
-          color: "black",
-          fontFamily: "Montserrat",
-          fontSize: 80,
-          fontWeight: "bold",
-          text: overlayText,
-        },
-        position: {
-          x: 10,
-          y: 10,
-          gravity: textPosition,
-        },
-      },
-      {
-        publicId: selectedLogo || "imageai/wklqvw90fg38tluyhola",
-        width: 100,
-        height: 100,
-        position: {
-          x: 10,
-          y: 10,
-          gravity: logoPosition,
-        },
-      },
+      ...(showText
+        ? [
+            {
+              text: {
+                color: "black",
+                fontFamily: "Montserrat",
+                fontSize: 80,
+                fontWeight: "bold",
+                text: overlayText,
+              },
+              position: {
+                x: 10,
+                y: 10,
+                gravity: textPosition,
+              },
+            },
+          ]
+        : []),
+      ...(showLogo && selectedLogo
+        ? [
+            {
+              publicId: selectedLogo,
+              width: 100,
+              height: 100,
+              position: {
+                x: 10,
+                y: 10,
+                gravity: logoPosition,
+              },
+            },
+          ]
+        : []),
     ],
   });
 

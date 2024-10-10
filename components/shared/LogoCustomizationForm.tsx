@@ -19,20 +19,23 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Switch } from "@/components/ui/switch";
 
 const formSchema = z.object({
+  mostrarTexto: z.boolean(),
   texto: z.string().min(1, {
     message: "Text is required.",
-  }),
+  }).optional(),
   posicionTexto: z.string().min(1, {
     message: "Select text position.",
-  }),
+  }).optional(),
+  mostrarLogo: z.boolean(),
   logo: z.string().min(1, {
     message: "Select a logo.",
-  }),
+  }).optional(),
   posicionLogo: z.string().min(1, {
     message: "Select logo position.",
-  }),
+  }).optional(),
 });
 
 interface LogoCustomizationFormProps {
@@ -51,8 +54,10 @@ const LogoCustomizationForm: React.FC<LogoCustomizationFormProps> = ({
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      texto: "Text",
+      mostrarTexto: true,
+      texto: "Venta",
       posicionTexto: "north_east",
+      mostrarLogo: true,
       logo: "",
       posicionLogo: "south_east",
     },
@@ -76,122 +81,164 @@ const LogoCustomizationForm: React.FC<LogoCustomizationFormProps> = ({
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <FormField
             control={form.control}
-            name="texto"
+            name="mostrarTexto"
             render={({ field }) => (
-              <FormItem>
-                <FormLabel className="text-lg font-semibold text-gray-700 dark:text-gray-200">
-                  Overlay Text
-                </FormLabel>
+              <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
+                <div className="space-y-0.5">
+                  <FormLabel className="text-base">Show Text</FormLabel>
+                </div>
                 <FormControl>
-                  <Input
-                    placeholder="Enter text"
-                    {...field}
-                    className="w-full p-3 border rounded-xl bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 transition-all duration-300"
+                  <Switch
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
                   />
                 </FormControl>
-                <FormMessage className="text-red-500 dark:text-red-400" />
               </FormItem>
             )}
           />
+          {form.watch("mostrarTexto") && (
+            <>
+              <FormField
+                control={form.control}
+                name="texto"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-lg font-semibold text-gray-700 dark:text-gray-200">
+                      Overlay Text
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="Enter text"
+                        {...field}
+                        className="w-full p-3 border rounded-xl bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 transition-all duration-300"
+                      />
+                    </FormControl>
+                    <FormMessage className="text-red-500 dark:text-red-400" />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="posicionTexto"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-lg font-semibold text-gray-700 dark:text-gray-200">
+                      Text Position
+                    </FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger className="w-full p-3 border rounded-xl bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 transition-all duration-300">
+                          <SelectValue placeholder="Select text position" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent className="bg-white dark:bg-gray-800 rounded-xl shadow-lg">
+                        {posiciones.map((pos) => (
+                          <SelectItem
+                            key={pos.value}
+                            value={pos.value}
+                            className="text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
+                          >
+                            {pos.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage className="text-red-500 dark:text-red-400" />
+                  </FormItem>
+                )}
+              />
+            </>
+          )}
           <FormField
             control={form.control}
-            name="posicionTexto"
+            name="mostrarLogo"
             render={({ field }) => (
-              <FormItem>
-                <FormLabel className="text-lg font-semibold text-gray-700 dark:text-gray-200">
-                  Text Position
-                </FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
-                  <FormControl>
-                    <SelectTrigger className="w-full p-3 border rounded-xl bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 transition-all duration-300">
-                      <SelectValue placeholder="Select text position" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent className="bg-white dark:bg-gray-800 rounded-xl shadow-lg">
-                    {posiciones.map((pos) => (
-                      <SelectItem
-                        key={pos.value}
-                        value={pos.value}
-                        className="text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
-                      >
-                        {pos.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                <FormMessage className="text-red-500 dark:text-red-400" />
+              <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
+                <div className="space-y-0.5">
+                  <FormLabel className="text-base">Show Logo</FormLabel>
+                </div>
+                <FormControl>
+                  <Switch
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                  />
+                </FormControl>
               </FormItem>
             )}
           />
-          <FormField
-            control={form.control}
-            name="logo"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="text-lg font-semibold text-gray-700 dark:text-gray-200">
-                  Select a logo
-                </FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
-                  <FormControl>
-                    <SelectTrigger className="w-full p-3 border rounded-xl bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 transition-all duration-300">
-                      <SelectValue placeholder="Select a logo" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent className="bg-white dark:bg-gray-800 rounded-xl shadow-lg">
-                    {logos.map((logo) => (
-                      <SelectItem
-                        key={logo._id}
-                        value={logo.publicId}
-                        className="text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
-                      >
-                        {logo.title}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                <FormMessage className="text-red-500 dark:text-red-400" />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="posicionLogo"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="text-lg font-semibold text-gray-700 dark:text-gray-200">
-                  Logo Position
-                </FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
-                  <FormControl>
-                    <SelectTrigger className="w-full p-3 border rounded-xl bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 transition-all duration-300">
-                      <SelectValue placeholder="Select logo position" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent className="bg-white dark:bg-gray-800 rounded-xl shadow-lg">
-                    {posiciones.map((pos) => (
-                      <SelectItem
-                        key={pos.value}
-                        value={pos.value}
-                        className="text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
-                      >
-                        {pos.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                <FormMessage className="text-red-500 dark:text-red-400" />
-              </FormItem>
-            )}
-          />
+          {form.watch("mostrarLogo") && (
+            <>
+              <FormField
+                control={form.control}
+                name="logo"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-lg font-semibold text-gray-700 dark:text-gray-200">
+                      Select a logo
+                    </FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger className="w-full p-3 border rounded-xl bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 transition-all duration-300">
+                          <SelectValue placeholder="Select a logo" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent className="bg-white dark:bg-gray-800 rounded-xl shadow-lg">
+                        {logos.map((logo) => (
+                          <SelectItem
+                            key={logo._id}
+                            value={logo.publicId}
+                            className="text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
+                          >
+                            {logo.title}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage className="text-red-500 dark:text-red-400" />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="posicionLogo"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-lg font-semibold text-gray-700 dark:text-gray-200">
+                      Logo Position
+                    </FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger className="w-full p-3 border rounded-xl bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 transition-all duration-300">
+                          <SelectValue placeholder="Select logo position" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent className="bg-white dark:bg-gray-800 rounded-xl shadow-lg">
+                        {posiciones.map((pos) => (
+                          <SelectItem
+                            key={pos.value}
+                            value={pos.value}
+                            className="text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
+                          >
+                            {pos.label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage className="text-red-500 dark:text-red-400" />
+                  </FormItem>
+                )}
+              />
+            </>
+          )}
           <Button
             type="submit"
             className="w-full bg-blue-500 hover:bg-blue-600 text-white py-3 rounded-xl transition-colors duration-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-700"
