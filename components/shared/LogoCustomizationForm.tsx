@@ -20,7 +20,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Label } from "../ui/label";
 
 const formSchema = z.object({
   mostrarTexto: z.boolean(),
@@ -104,6 +103,7 @@ const LogoCustomizationForm: React.FC<LogoCustomizationFormProps> = ({
                   <Checkbox
                     checked={field.value}
                     onCheckedChange={field.onChange}
+                    className="pb-2"
                   />
                 </FormControl>
               </FormItem>
@@ -170,14 +170,14 @@ const LogoCustomizationForm: React.FC<LogoCustomizationFormProps> = ({
             name="mostrarLogo"
             render={({ field }) => (
               <FormItem className="flex items-center justify-start gap-2">
-                <FormLabel className="text-base font-medium text-gray-700 dark:text-gray-200">
+                <FormLabel className="text-base font-medium text-gray-700 dark:text-gray-200 pt-1">
                   Show Logo
                 </FormLabel>
                 <FormControl className="">
                   <Checkbox
                     checked={field.value}
                     onCheckedChange={field.onChange}
-                    className="flex items-center py-2"
+                    className="pb-2 rounded-lg"
                   />
                   
                 </FormControl>
