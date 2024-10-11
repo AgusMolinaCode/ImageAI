@@ -19,23 +19,36 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Switch } from "@/components/ui/switch";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "../ui/label";
 
 const formSchema = z.object({
   mostrarTexto: z.boolean(),
-  texto: z.string().min(1, {
-    message: "Text is required.",
-  }).optional(),
-  posicionTexto: z.string().min(1, {
-    message: "Select text position.",
-  }).optional(),
+  texto: z
+    .string()
+    .min(1, {
+      message: "Text is required.",
+    })
+    .optional(),
+  posicionTexto: z
+    .string()
+    .min(1, {
+      message: "Select text position.",
+    })
+    .optional(),
   mostrarLogo: z.boolean(),
-  logo: z.string().min(1, {
-    message: "Select a logo.",
-  }).optional(),
-  posicionLogo: z.string().min(1, {
-    message: "Select logo position.",
-  }).optional(),
+  logo: z
+    .string()
+    .min(1, {
+      message: "Select a logo.",
+    })
+    .optional(),
+  posicionLogo: z
+    .string()
+    .min(1, {
+      message: "Select logo position.",
+    })
+    .optional(),
 });
 
 interface LogoCustomizationFormProps {
@@ -88,7 +101,7 @@ const LogoCustomizationForm: React.FC<LogoCustomizationFormProps> = ({
                   <FormLabel className="text-base">Show Text</FormLabel>
                 </div>
                 <FormControl>
-                  <Switch
+                  <Checkbox
                     checked={field.value}
                     onCheckedChange={field.onChange}
                   />
@@ -156,15 +169,17 @@ const LogoCustomizationForm: React.FC<LogoCustomizationFormProps> = ({
             control={form.control}
             name="mostrarLogo"
             render={({ field }) => (
-              <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
-                <div className="space-y-0.5">
-                  <FormLabel className="text-base">Show Logo</FormLabel>
-                </div>
-                <FormControl>
-                  <Switch
+              <FormItem className="flex items-center justify-start gap-2">
+                <FormLabel className="text-base font-medium text-gray-700 dark:text-gray-200">
+                  Show Logo
+                </FormLabel>
+                <FormControl className="">
+                  <Checkbox
                     checked={field.value}
                     onCheckedChange={field.onChange}
+                    className="flex items-center py-2"
                   />
+                  
                 </FormControl>
               </FormItem>
             )}
