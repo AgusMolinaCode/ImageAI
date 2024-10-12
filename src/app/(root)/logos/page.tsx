@@ -1,11 +1,9 @@
-
 import LogoForm from "@/components/shared/LogoForm";
-import { getUserLogos } from "@/lib/actions/logo.actions";
 import { getUserById } from "@/lib/actions/user.actions";
 import { auth } from "@clerk/nextjs/server";
 import React from "react";
 
-const page = async ({ searchParams }: SearchParamProps) => {
+const page = async () => {
   // const page = Number(searchParams?.page) || 1;
   const { userId } = auth();
   
