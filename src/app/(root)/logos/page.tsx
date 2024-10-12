@@ -14,18 +14,18 @@ const page = async ({ searchParams }: SearchParamProps) => {
   }
 
   const user = await getUserById(userId);
-  const images = await getUserLogos({ page, userId: user._id });
+  const images = await getUserLogos({ userId: user._id });
 
   return (
     <div>
       <LogoForm action="Add" userId={user._id} />
 
-      <Collection
+      {/* <Collection
         hasSearch={true}
         images={images?.data}
         totalPages={images?.totalPages}
         page={page}
-      />
+      /> */}
     </div>
   );
 };
