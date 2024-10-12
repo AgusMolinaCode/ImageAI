@@ -3,8 +3,7 @@ import React, { useState } from "react";
 import { getCldOgImageUrl } from "next-cloudinary";
 import Image from "next/image";
 import Header from "./Header";
-
-import LogoCustomizationForm from "./LogoCustomizationForm";
+import CustomizationGalleryForm from "./CustomizationGalleryForm";
 
 interface LogoGalleryProps {
   logos: Array<{
@@ -15,16 +14,29 @@ interface LogoGalleryProps {
     width: number;
     height: number;
   }>;
+  images: Array<{
+    _id: string;
+    title: string;
+    publicId: string;
+    secureURL: string;
+    width: number;
+    height: number;
+  }>;
 }
 
-const LogoGallery: React.FC<LogoGalleryProps> = ({ logos }) => {
+const CustomizationGallery: React.FC<LogoGalleryProps> = ({
+  logos,
+  images,
+}) => {
   const [selectedLogo, setSelectedLogo] = useState<string | null>(null);
   const [overlayText, setOverlayText] = useState<string>("Venta");
   const [textPosition, setTextPosition] = useState<string>("north_east");
   const [logoPosition, setLogoPosition] = useState<string>("south_east");
   const [showText, setShowText] = useState<boolean>(true);
   const [showLogo, setShowLogo] = useState<boolean>(true);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
+  // Modificar la función onSubmit para incluir la imagen seleccionada
   function onSubmit(values: {
     mostrarTexto: boolean;
     texto?: string;
@@ -32,6 +44,7 @@ const LogoGallery: React.FC<LogoGalleryProps> = ({ logos }) => {
     mostrarLogo: boolean;
     logo?: string;
     posicionLogo?: string;
+    imagen?: string; // Agregar la imagen seleccionada
   }) {
     setShowText(values.mostrarTexto);
     setShowLogo(values.mostrarLogo);
@@ -43,10 +56,11 @@ const LogoGallery: React.FC<LogoGalleryProps> = ({ logos }) => {
       setSelectedLogo(values.logo);
       setLogoPosition(values.posicionLogo || "south_east");
     }
+    setSelectedImage(values.imagen || null); // Guardar la imagen seleccionada
   }
 
   const imageUrl = getCldOgImageUrl({
-    src: "imageai/fosbhfi8ijduelnwio7u",
+    src: selectedImage || "imageai/fosbhfi8ijduelnwio7u",
     width: 700,
     height: 700,
     overlays: [
@@ -55,9 +69,9 @@ const LogoGallery: React.FC<LogoGalleryProps> = ({ logos }) => {
             {
               text: {
                 color: "black",
-                fontFamily: "Montserrat",
-                fontSize: 80,
-                fontWeight: "bold",
+                fontFamily: "Lato",
+                fontSize: 60,
+                fontWeight: "semibold",
                 text: overlayText,
               },
               position: {
@@ -71,9 +85,9 @@ const LogoGallery: React.FC<LogoGalleryProps> = ({ logos }) => {
       ...(showLogo && selectedLogo
         ? [
             {
-              publicId: selectedLogo,
-              width: 100,
-              height: 100,
+              publicId: selectedLogo || "Nike",
+              width: 130,
+              height: 110,
               position: {
                 x: 10,
                 y: 10,
@@ -83,6 +97,7 @@ const LogoGallery: React.FC<LogoGalleryProps> = ({ logos }) => {
           ]
         : []),
     ],
+    underlay: "imageai/66_v0xkau",
   });
 
   return (
@@ -101,10 +116,14 @@ const LogoGallery: React.FC<LogoGalleryProps> = ({ logos }) => {
             className="w-[700px] h-[700px] object-cover"
           />
         </div>
-        <LogoCustomizationForm logos={logos} onSubmit={onSubmit} />
+        <CustomizationGalleryForm
+          logos={logos}
+          images={images}
+          onSubmit={onSubmit}
+        />
       </div>
     </>
   );
 };
 
-export default LogoGallery;
+export default CustomizationGallery;

@@ -22,6 +22,7 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 
 const formSchema = z.object({
+  imagen: z.string().optional(),
   mostrarTexto: z.boolean(),
   texto: z
     .string()
@@ -56,11 +57,17 @@ interface LogoCustomizationFormProps {
     title: string;
     publicId: string;
   }>;
+  images: Array<{
+    _id: string;
+    title: string;
+    publicId: string;
+  }>;
   onSubmit: (values: z.infer<typeof formSchema>) => void;
 }
 
-const LogoCustomizationForm: React.FC<LogoCustomizationFormProps> = ({
+const CustomizationGalleryForm: React.FC<LogoCustomizationFormProps> = ({
   logos,
+  images,
   onSubmit,
 }) => {
   const form = useForm<z.infer<typeof formSchema>>({
@@ -70,8 +77,9 @@ const LogoCustomizationForm: React.FC<LogoCustomizationFormProps> = ({
       texto: "Venta",
       posicionTexto: "north_east",
       mostrarLogo: true,
-      logo: "",
+      logo: "Nike",
       posicionLogo: "south_east",
+      imagen: "",
     },
   });
 
@@ -90,20 +98,54 @@ const LogoCustomizationForm: React.FC<LogoCustomizationFormProps> = ({
   return (
     <div className="max-w-xl md:w-1/2 h-full bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg transition-colors duration-300">
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+          <FormField
+            control={form.control}
+            name="imagen"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-lg font-semibold text-gray-700 dark:text-gray-200">
+                  Selecciona una imagen
+                </FormLabel>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
+                  <FormControl>
+                    <SelectTrigger className="w-full p-3 border rounded-xl bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100">
+                      <SelectValue placeholder="Selecciona una imagen" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent className="bg-white dark:bg-gray-800 rounded-xl shadow-lg">
+                    {images.map((image) => (
+                      <SelectItem
+                        key={image._id}
+                        value={image.publicId}
+                        className="text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
+                      >
+                        {image.title}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <FormMessage className="text-red-500 dark:text-red-400" />
+              </FormItem>
+            )}
+          />
+
           <FormField
             control={form.control}
             name="mostrarTexto"
             render={({ field }) => (
-              <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
-                <div className="space-y-0.5">
-                  <FormLabel className="text-base">Show Text</FormLabel>
-                </div>
+              <FormItem className="flex items-center justify-start gap-2">
+                <FormLabel className="text-base font-medium text-gray-700 dark:text-gray-200 pt-1">
+                  Mostrar Texto
+                </FormLabel>
                 <FormControl>
                   <Checkbox
                     checked={field.value}
                     onCheckedChange={field.onChange}
-                    className="pb-2"
+                    className="pb-2 rounded-lg"
                   />
                 </FormControl>
               </FormItem>
@@ -117,13 +159,13 @@ const LogoCustomizationForm: React.FC<LogoCustomizationFormProps> = ({
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="text-lg font-semibold text-gray-700 dark:text-gray-200">
-                      Overlay Text
+                      Texto Superpuesto
                     </FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Enter text"
+                        placeholder="Ingresa texto"
                         {...field}
-                        className="w-full p-3 border rounded-xl bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 transition-all duration-300"
+                        className="w-full p-3 border rounded-xl bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:border-transparent"
                       />
                     </FormControl>
                     <FormMessage className="text-red-500 dark:text-red-400" />
@@ -136,15 +178,15 @@ const LogoCustomizationForm: React.FC<LogoCustomizationFormProps> = ({
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="text-lg font-semibold text-gray-700 dark:text-gray-200">
-                      Text Position
+                      Posición del Texto
                     </FormLabel>
                     <Select
                       onValueChange={field.onChange}
                       defaultValue={field.value}
                     >
                       <FormControl>
-                        <SelectTrigger className="w-full p-3 border rounded-xl bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 transition-all duration-300">
-                          <SelectValue placeholder="Select text position" />
+                        <SelectTrigger className="w-full p-3 border rounded-xl bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100">
+                          <SelectValue placeholder="Selecciona la posición del texto" />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent className="bg-white dark:bg-gray-800 rounded-xl shadow-lg">
@@ -171,15 +213,14 @@ const LogoCustomizationForm: React.FC<LogoCustomizationFormProps> = ({
             render={({ field }) => (
               <FormItem className="flex items-center justify-start gap-2">
                 <FormLabel className="text-base font-medium text-gray-700 dark:text-gray-200 pt-1">
-                  Show Logo
+                  Mostrar Logo
                 </FormLabel>
-                <FormControl className="">
+                <FormControl>
                   <Checkbox
                     checked={field.value}
                     onCheckedChange={field.onChange}
                     className="pb-2 rounded-lg"
                   />
-                  
                 </FormControl>
               </FormItem>
             )}
@@ -192,15 +233,15 @@ const LogoCustomizationForm: React.FC<LogoCustomizationFormProps> = ({
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="text-lg font-semibold text-gray-700 dark:text-gray-200">
-                      Select a logo
+                      Selecciona un logo
                     </FormLabel>
                     <Select
                       onValueChange={field.onChange}
                       defaultValue={field.value}
                     >
                       <FormControl>
-                        <SelectTrigger className="w-full p-3 border rounded-xl bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 transition-all duration-300">
-                          <SelectValue placeholder="Select a logo" />
+                        <SelectTrigger className="w-full p-3 border rounded-xl bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100">
+                          <SelectValue placeholder="Cambia Nike por..." className="text-white bg-blue-500 z-10"/>
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent className="bg-white dark:bg-gray-800 rounded-xl shadow-lg">
@@ -225,15 +266,15 @@ const LogoCustomizationForm: React.FC<LogoCustomizationFormProps> = ({
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="text-lg font-semibold text-gray-700 dark:text-gray-200">
-                      Logo Position
+                      Posición del Logo
                     </FormLabel>
                     <Select
                       onValueChange={field.onChange}
                       defaultValue={field.value}
                     >
                       <FormControl>
-                        <SelectTrigger className="w-full p-3 border rounded-xl bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 transition-all duration-300">
-                          <SelectValue placeholder="Select logo position" />
+                        <SelectTrigger className="w-full p-3 border rounded-xl bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100">
+                          <SelectValue placeholder="Selecciona la posición del logo" />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent className="bg-white dark:bg-gray-800 rounded-xl shadow-lg">
@@ -256,9 +297,9 @@ const LogoCustomizationForm: React.FC<LogoCustomizationFormProps> = ({
           )}
           <Button
             type="submit"
-            className="w-full bg-blue-500 hover:bg-blue-600 text-white py-3 rounded-xl transition-colors duration-300 focus:ring-2 focus:ring-blue-300 dark:focus:ring-blue-700"
+            className="w-full bg-blue-500 hover:bg-blue-600 text-white py-3 rounded-xl transition-colors duration-300"
           >
-            Apply Changes
+            Aplicar Cambios
           </Button>
         </form>
       </Form>
@@ -266,4 +307,4 @@ const LogoCustomizationForm: React.FC<LogoCustomizationFormProps> = ({
   );
 };
 
-export default LogoCustomizationForm;
+export default CustomizationGalleryForm;

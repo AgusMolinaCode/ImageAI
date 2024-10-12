@@ -2,7 +2,8 @@ import React from "react";
 import { getUserById } from "@/lib/actions/user.actions";
 import { getUserLogos } from "@/lib/actions/logo.actions";
 import { auth } from "@clerk/nextjs/server";
-import LogoGallery from "@/components/shared/LogoGallery";
+import CustomizationGallery from "@/components/shared/CustomizationGallery";
+import { getUserImages } from "@/lib/actions/image.actions";
 
 const page = async () => {
   const { userId } = auth();
@@ -12,12 +13,13 @@ const page = async () => {
   }
 
   const user = await getUserById(userId);
-  const images = await getUserLogos({ userId: user._id });
+  const logos = await getUserLogos({ userId: user._id });
+  const images = await getUserImages({userId: user._id});
   
   
   return (
     <div>
-      <LogoGallery logos={images?.data} />
+      <CustomizationGallery logos={logos?.data} images={images?.data} />
     </div>
   );
 };
