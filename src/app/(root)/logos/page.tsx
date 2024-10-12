@@ -1,4 +1,4 @@
-import { Collection } from "@/components/shared/Collection";
+
 import LogoForm from "@/components/shared/LogoForm";
 import { getUserLogos } from "@/lib/actions/logo.actions";
 import { getUserById } from "@/lib/actions/user.actions";
@@ -6,7 +6,7 @@ import { auth } from "@clerk/nextjs/server";
 import React from "react";
 
 const page = async ({ searchParams }: SearchParamProps) => {
-  const page = Number(searchParams?.page) || 1;
+  // const page = Number(searchParams?.page) || 1;
   const { userId } = auth();
   
   if (!userId) {
@@ -14,7 +14,7 @@ const page = async ({ searchParams }: SearchParamProps) => {
   }
 
   const user = await getUserById(userId);
-  const images = await getUserLogos({ userId: user._id });
+  // const images = await getUserLogos({ userId: user._id });
 
   return (
     <div>
