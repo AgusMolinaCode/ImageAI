@@ -3,19 +3,19 @@ import { auth } from "@clerk/nextjs/server";
 import Image from "next/image";
 import { redirect } from "next/navigation";
 
-import { Collection } from "@/components/shared/Collection";
+// import { Collection } from "@/components/shared/Collection";
 import Header from "@/components/shared/Header";
 import { getUserImages } from "@/lib/actions/image.actions";
 import { getUserById } from "@/lib/actions/user.actions";
 
 const Profile = async ({ searchParams }: SearchParamProps) => {
-  const page = Number(searchParams?.page) || 1;
+  // const page = Number(searchParams?.page) || 1;
   const { userId } = auth();
 
   if (!userId) redirect("/sign-in");
 
   const user = await getUserById(userId);
-  const images = await getUserImages({ page, userId: user._id });
+  const images = await getUserImages({ userId: user._id });
 
   return (
     <>
@@ -52,11 +52,11 @@ const Profile = async ({ searchParams }: SearchParamProps) => {
       </section>
 
       <section className="mt-8 md:mt-14">
-        <Collection
+        {/* <Collection
           images={images?.data}
           totalPages={images?.totalPages}
           page={page}
-        />
+        /> */}
       </section>
     </>
   );
