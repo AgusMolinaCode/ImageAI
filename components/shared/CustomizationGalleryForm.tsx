@@ -29,7 +29,7 @@ const formSchema = z.object({
   texto: z
     .string()
     .min(1, {
-      message: "Text is required.",
+      message: "Enter text.",
     })
     .optional(),
   posicionTexto: z

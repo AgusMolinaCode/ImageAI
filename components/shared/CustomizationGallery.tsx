@@ -116,7 +116,7 @@ const CustomizationGallery: React.FC<LogoGalleryProps> = ({
         title="Customize your image"
         subtitle="Add your logo to the image"
       />
-      <div className="flex flex-col md:flex-row justify-center gap-4 my-8">
+      <div className="flex flex-col md:flex-row justify-center gap-4 lg:my-8 px-1">
         <div className="w-full md:w-1/2">
           {selectedImage ? (
             <Image

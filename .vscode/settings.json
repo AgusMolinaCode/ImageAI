@@ -2,5 +2,7 @@
     "editor.wordWrap": "bounded",
     "chat.editor.wordWrap": "on",
     "workbench.editor.wrapTabs": false,
-    "git.ignoreLimitWarning": true
+    "git.ignoreLimitWarning": true,
+    "workbench.editor.highlightModifiedTabs": false,
+    "window.density.editorTabHeight": "default"
 }
