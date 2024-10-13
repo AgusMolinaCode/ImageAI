@@ -29,14 +29,17 @@ const CustomizationGallery: React.FC<LogoGalleryProps> = ({
   images,
 }) => {
   const [selectedLogo, setSelectedLogo] = useState<string | null>(null);
-  const [overlayText, setOverlayText] = useState<string>("Venta");
+  const [overlayText, setOverlayText] = useState<string>(""); // Cambiar "Venta" a un string vacío
   const [textPosition, setTextPosition] = useState<string>("north_east");
   const [logoPosition, setLogoPosition] = useState<string>("south_east");
   const [showText, setShowText] = useState<boolean>(true);
   const [showLogo, setShowLogo] = useState<boolean>(true);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [selectedBackground, setSelectedBackground] = useState<string | null>(
+    null
+  );
 
-  // Modificar la función onSubmit para incluir la imagen seleccionada
+  // Modificar la función onSubmit para incluir la imagen de fondo seleccionada
   function onSubmit(values: {
     mostrarTexto: boolean;
     texto?: string;
@@ -45,6 +48,8 @@ const CustomizationGallery: React.FC<LogoGalleryProps> = ({
     logo?: string;
     posicionLogo?: string;
     imagen?: string; // Agregar la imagen seleccionada
+    mostrarFondo: boolean; // Agregar para mostrar fondo
+    fondo?: string; // Agregar para la imagen de fondo
   }) {
     setShowText(values.mostrarTexto);
     setShowLogo(values.mostrarLogo);
@@ -57,14 +62,19 @@ const CustomizationGallery: React.FC<LogoGalleryProps> = ({
       setLogoPosition(values.posicionLogo || "south_east");
     }
     setSelectedImage(values.imagen || null); // Guardar la imagen seleccionada
+    if (values.mostrarFondo) {
+      setSelectedBackground(values.fondo || null); // Guardar la imagen de fondo seleccionada
+    } else {
+      setSelectedBackground(null); // No mostrar fondo si no está seleccionado
+    }
   }
 
   const imageUrl = getCldOgImageUrl({
-    src: selectedImage || "imageai/fosbhfi8ijduelnwio7u",
+    src: selectedImage || "imageai/v33hkuthczc0wkhhmjjm",
     width: 700,
     height: 700,
     overlays: [
-      ...(showText
+      ...(showText && overlayText // Asegurarse de que overlayText no esté vacío
         ? [
             {
               text: {
@@ -85,7 +95,7 @@ const CustomizationGallery: React.FC<LogoGalleryProps> = ({
       ...(showLogo && selectedLogo
         ? [
             {
-              publicId: selectedLogo || "Nike",
+              publicId: selectedLogo,
               width: 130,
               height: 110,
               position: {
@@ -97,7 +107,7 @@ const CustomizationGallery: React.FC<LogoGalleryProps> = ({
           ]
         : []),
     ],
-    underlay: "imageai/66_v0xkau",
+    underlay: selectedBackground ?? undefined,
   });
 
   return (
@@ -108,13 +118,19 @@ const CustomizationGallery: React.FC<LogoGalleryProps> = ({
       />
       <div className="flex flex-col md:flex-row justify-center gap-4 my-8">
         <div className="w-full md:w-1/2">
-          <Image
-            width={700}
-            height={700}
-            src={imageUrl}
-            alt="Imagen Principal"
-            className="w-[700px] h-[700px] object-cover"
-          />
+          {selectedImage ? (
+            <Image
+              width={700}
+              height={700}
+              src={imageUrl}
+              alt="Imagen Principal"
+              className="w-[700px] h-[700px] object-cover"
+            />
+          ) : (
+            <div className="flex items-center justify-center w-full h-[700px]">
+              <p className="text-lg text-gray-500">Choose an image and start customizing</p>
+            </div>
+          )}
         </div>
         <CustomizationGalleryForm
           logos={logos}

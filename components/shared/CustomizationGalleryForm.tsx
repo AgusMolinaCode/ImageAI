@@ -23,6 +23,8 @@ import { Checkbox } from "@/components/ui/checkbox";
 
 const formSchema = z.object({
   imagen: z.string().optional(),
+  mostrarFondo: z.boolean(),
+  fondo: z.string().optional(),
   mostrarTexto: z.boolean(),
   texto: z
     .string()
@@ -73,13 +75,15 @@ const CustomizationGalleryForm: React.FC<LogoCustomizationFormProps> = ({
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      mostrarTexto: true,
-      texto: "Venta",
+      mostrarTexto: false,
+      texto: "Sale",
+      mostrarFondo: false,
       posicionTexto: "north_east",
-      mostrarLogo: true,
+      mostrarLogo: false,
       logo: "Nike",
       posicionLogo: "south_east",
       imagen: "",
+      fondo: "background1",
     },
   });
 
@@ -105,7 +109,7 @@ const CustomizationGalleryForm: React.FC<LogoCustomizationFormProps> = ({
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="text-lg font-semibold text-gray-700 dark:text-gray-200">
-                  Selecciona una imagen
+                  Choose an image
                 </FormLabel>
                 <Select
                   onValueChange={field.onChange}
@@ -113,7 +117,7 @@ const CustomizationGalleryForm: React.FC<LogoCustomizationFormProps> = ({
                 >
                   <FormControl>
                     <SelectTrigger className="w-full p-3 border rounded-xl bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100">
-                      <SelectValue placeholder="Selecciona una imagen" />
+                      <SelectValue placeholder="Select an image" />
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent className="bg-white dark:bg-gray-800 rounded-xl shadow-lg">
@@ -135,11 +139,91 @@ const CustomizationGalleryForm: React.FC<LogoCustomizationFormProps> = ({
 
           <FormField
             control={form.control}
+            name="mostrarFondo"
+            render={({ field }) => (
+              <FormItem className="flex items-center justify-start gap-2">
+                <FormLabel className="text-base font-medium text-gray-700 dark:text-gray-200 pt-1">
+                  Show Background Image
+                </FormLabel>
+                <FormControl>
+                  <Checkbox
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                    className="pb-2 rounded-lg"
+                  />
+                </FormControl>
+              </FormItem>
+            )}
+          />
+          {form.watch("mostrarFondo") && (
+            <FormField
+              control={form.control}
+              name="fondo"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-lg font-semibold text-gray-700 dark:text-gray-200">
+                    Select a Background
+                  </FormLabel>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger className="w-full p-3 border rounded-xl bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100">
+                        <SelectValue placeholder="Select a background" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent className="bg-white dark:bg-gray-800 rounded-xl shadow-lg">
+                      <SelectItem
+                        key="background1"
+                        value="imageai/background1"
+                        className="text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
+                      >
+                        Background 1
+                      </SelectItem>
+                      <SelectItem
+                        key="background2"
+                        value="imageai/background2"
+                        className="text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
+                      >
+                        Background 2
+                      </SelectItem>
+                      <SelectItem
+                        key="background3"
+                        value="imageai/background3"
+                        className="text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
+                      >
+                        Background 3
+                      </SelectItem>
+                      <SelectItem
+                        key="background4"
+                        value="imageai/background4"
+                        className="text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
+                      >
+                        Background 4
+                      </SelectItem>
+                      <SelectItem
+                        key="background5"
+                        value="imageai/background5"
+                        className="text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
+                      >
+                        Background 5
+                      </SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <FormMessage className="text-red-500 dark:text-red-400" />
+                </FormItem>
+              )}
+            />
+          )}
+
+          <FormField
+            control={form.control}
             name="mostrarTexto"
             render={({ field }) => (
               <FormItem className="flex items-center justify-start gap-2">
                 <FormLabel className="text-base font-medium text-gray-700 dark:text-gray-200 pt-1">
-                  Mostrar Texto
+                  Show Text
                 </FormLabel>
                 <FormControl>
                   <Checkbox
@@ -159,11 +243,11 @@ const CustomizationGalleryForm: React.FC<LogoCustomizationFormProps> = ({
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="text-lg font-semibold text-gray-700 dark:text-gray-200">
-                      Texto Superpuesto
+                      Overlay Text
                     </FormLabel>
                     <FormControl>
                       <Input
-                        placeholder="Ingresa texto"
+                        placeholder="Enter text"
                         {...field}
                         className="w-full p-3 border rounded-xl bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100 focus:border-transparent"
                       />
@@ -178,7 +262,7 @@ const CustomizationGalleryForm: React.FC<LogoCustomizationFormProps> = ({
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="text-lg font-semibold text-gray-700 dark:text-gray-200">
-                      Posición del Texto
+                      Text Position
                     </FormLabel>
                     <Select
                       onValueChange={field.onChange}
@@ -186,7 +270,7 @@ const CustomizationGalleryForm: React.FC<LogoCustomizationFormProps> = ({
                     >
                       <FormControl>
                         <SelectTrigger className="w-full p-3 border rounded-xl bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100">
-                          <SelectValue placeholder="Selecciona la posición del texto" />
+                          <SelectValue placeholder="Select text position" />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent className="bg-white dark:bg-gray-800 rounded-xl shadow-lg">
@@ -213,7 +297,7 @@ const CustomizationGalleryForm: React.FC<LogoCustomizationFormProps> = ({
             render={({ field }) => (
               <FormItem className="flex items-center justify-start gap-2">
                 <FormLabel className="text-base font-medium text-gray-700 dark:text-gray-200 pt-1">
-                  Mostrar Logo
+                  Show Logo
                 </FormLabel>
                 <FormControl>
                   <Checkbox
@@ -233,7 +317,7 @@ const CustomizationGalleryForm: React.FC<LogoCustomizationFormProps> = ({
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="text-lg font-semibold text-gray-700 dark:text-gray-200">
-                      Selecciona un logo
+                      Select a logo
                     </FormLabel>
                     <Select
                       onValueChange={field.onChange}
@@ -241,7 +325,10 @@ const CustomizationGalleryForm: React.FC<LogoCustomizationFormProps> = ({
                     >
                       <FormControl>
                         <SelectTrigger className="w-full p-3 border rounded-xl bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100">
-                          <SelectValue placeholder="Cambia Nike por..." className="text-white bg-blue-500 z-10"/>
+                          <SelectValue
+                            placeholder="Change Nike to..."
+                            className="text-white bg-blue-500 z-10"
+                          />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent className="bg-white dark:bg-gray-800 rounded-xl shadow-lg">
@@ -266,7 +353,7 @@ const CustomizationGalleryForm: React.FC<LogoCustomizationFormProps> = ({
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="text-lg font-semibold text-gray-700 dark:text-gray-200">
-                      Posición del Logo
+                      Logo Position
                     </FormLabel>
                     <Select
                       onValueChange={field.onChange}
@@ -274,7 +361,7 @@ const CustomizationGalleryForm: React.FC<LogoCustomizationFormProps> = ({
                     >
                       <FormControl>
                         <SelectTrigger className="w-full p-3 border rounded-xl bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100">
-                          <SelectValue placeholder="Selecciona la posición del logo" />
+                          <SelectValue placeholder="Select logo position" />
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent className="bg-white dark:bg-gray-800 rounded-xl shadow-lg">
@@ -299,7 +386,7 @@ const CustomizationGalleryForm: React.FC<LogoCustomizationFormProps> = ({
             type="submit"
             className="w-full bg-blue-500 hover:bg-blue-600 text-white py-3 rounded-xl transition-colors duration-300"
           >
-            Aplicar Cambios
+            Apply Changes
           </Button>
         </form>
       </Form>
