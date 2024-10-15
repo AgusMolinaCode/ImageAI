@@ -1,6 +1,6 @@
 import React from "react";
-import { getUserById } from "@/lib/actions/user.actions";
-import { getUserLogos } from "@/lib/actions/logo.actions";
+// import { getUserById } from "@/lib/actions/user.actions";
+// import { getUserLogos } from "@/lib/actions/logo.actions";
 import { auth } from "@clerk/nextjs/server";
 // import CustomizationGallery from "@/components/shared/CustomizationGallery";
 // import { getUserImages } from "@/lib/actions/image.actions";
@@ -12,8 +12,8 @@ const page = async () => {
     return <div>Error: User ID is required</div>;
   }
 
-  const user = await getUserById(userId);
-  const logos = await getUserLogos({ userId: user._id });
+  // const user = await getUserById(userId);
+  // const logos = await getUserLogos({ userId: user._id });
   // const images = await getUserImages({userId: user._id});
   
   
