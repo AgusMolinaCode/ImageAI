@@ -10,10 +10,7 @@ import { updateCredits } from './user.actions';
 export async function checkoutCredits(transaction: CheckoutTransactionParams) {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
-  // Asegúrate de que el monto sea al menos 50 centavos en ARS
-  const minimumAmountARS = 50; // 50 centavos en ARS
   const amount = Number(transaction.amount) * 100;
-  console.log(amount);
 
   const session = await stripe.checkout.sessions.create({
     line_items: [
