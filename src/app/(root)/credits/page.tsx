@@ -33,7 +33,8 @@ const Credits = async () => {
               <div className="flex-start flex-col gap-3">
                 <p className="font-bold mt-2 text-black">{plan.name}</p>
                 <p className="font-semibold text-6xl text-black mt-6">
-                  ${plan.price}
+                  ${plan.price}{" "}
+                  {plan.price !== 0 && <span className="text-xl">ARS</span>}
                 </p>
                 <p className="font-semibold text-md text-gray-500 mt-2">
                   {plan.description}
@@ -64,7 +65,9 @@ const Credits = async () => {
               </ul>
 
               {plan.name === "Free" ? (
-                <p className="text-start py-2 text-gray-500 font-medium">Free Consumable</p>
+                <p className="text-start py-2 text-gray-500 font-medium">
+                  Free Consumable
+                </p>
               ) : (
                 <SignedIn>
                   <Checkout
