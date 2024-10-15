@@ -1,4 +1,4 @@
-import LogoForm from "@/components/shared/LogoForm";
+import UserImageForm from "@/components/shared/UserImageForm";
 import { getUserById } from "@/lib/actions/user.actions";
 import { auth } from "@clerk/nextjs/server";
 import React from "react";
@@ -14,7 +14,7 @@ const page = async () => {
 
   return (
     <div>
-      <LogoForm action="Add" userId={user._id} />
+      <UserImageForm action="Add" userId={user._id} />
     </div>
   );
 };

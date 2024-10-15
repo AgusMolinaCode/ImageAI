@@ -69,8 +69,34 @@ declare type AddLogoParams = {
   path: string;
 };
 
+// ====== USER IMAGE PARAMS
+declare type AddUserImageParams = {
+  image: {
+    title: string;
+    publicId: string;
+    secureURL: string;
+    width: number;
+    height: number;
+  };
+  userId: string;
+  path: string;
+};
+
 declare type UpdateLogoParams = {
   logo: {
+    _id: string;
+    title: string;
+    publicId: string;
+    secureURL: string;
+    width: number;
+    height: number;
+  };
+  userId: string;
+  path: string;
+};
+
+declare type UpdateUserImageParams = {
+  image: {
     _id: string;
     title: string;
     publicId: string;
@@ -169,6 +195,12 @@ declare type AddLogoParams = {
 };
 
 declare type LogoFormProps = {
+  action: "Add";
+  userId: string;
+  data?: IImage | null;
+};
+
+declare type UserImageFormProps = {
   action: "Add";
   userId: string;
   data?: IImage | null;

@@ -1,25 +1,26 @@
-import React from "react";
 import { auth } from "@clerk/nextjs/server";
+import { currentUser } from '@clerk/nextjs/server';
 import Image from "next/image";
 import { redirect } from "next/navigation";
 
-// import { Collection } from "@/components/shared/Collection";
+import { Collection } from "@/components/shared/Collection";
 import Header from "@/components/shared/Header";
 import { getUserImages } from "@/lib/actions/image.actions";
 import { getUserById } from "@/lib/actions/user.actions";
 
-const Profile = async () => {
-  // const page = Number(searchParams?.page) || 1;
+const Profile = async ({ searchParams }: SearchParamProps) => {
+  const page = Number(searchParams?.page) || 1;
   const { userId } = auth();
+  const usuario = await currentUser();
 
   if (!userId) redirect("/sign-in");
 
   const user = await getUserById(userId);
-  const images = await getUserImages({ userId: user._id });
+  const images = await getUserImages({ page, userId: user._id });
 
   return (
     <>
-      <Header title="Profile" subtitle="Profile page" />
+      <Header title="Profile" subtitle={`${usuario?.firstName}`} />
 
       <section className="profile">
         <div className="profile-balance">
@@ -52,11 +53,11 @@ const Profile = async () => {
       </section>
 
       <section className="mt-8 md:mt-14">
-        {/* <Collection
+        <Collection
           images={images?.data}
           totalPages={images?.totalPages}
           page={page}
-        /> */}
+        />
       </section>
     </>
   );

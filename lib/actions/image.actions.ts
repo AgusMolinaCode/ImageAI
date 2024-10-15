@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
 
 import { revalidatePath } from "next/cache";
@@ -8,7 +7,7 @@ import User from "../database/models/user.model";
 import Image from "../database/models/image.models";
 import { redirect } from "next/navigation";
 
-import { v2 as cloudinary } from "cloudinary";
+import { v2 as cloudinary } from 'cloudinary'
 
 const populateUser = (query: any) => query.populate({
   path: 'author',
@@ -94,7 +93,7 @@ export async function getImageById(imageId: string) {
 }
 
 // GET IMAGES
-export async function getAllImages({ limit = 6, page = 1, searchQuery = '' }: {
+export async function getAllImages({ limit = 9, page = 1, searchQuery = '' }: {
   limit?: number;
   page: number;
   searchQuery?: string;
@@ -109,7 +108,7 @@ export async function getAllImages({ limit = 6, page = 1, searchQuery = '' }: {
       secure: true,
     })
 
-    let expression = 'folder=ImageAI';
+    let expression = 'folder=imaginify';
 
     if (searchQuery) {
       expression += ` AND ${searchQuery}`
@@ -152,16 +151,30 @@ export async function getAllImages({ limit = 6, page = 1, searchQuery = '' }: {
 }
 
 // GET IMAGES BY USER
-export async function getUserImages({ userId }: { userId: string }) {
+export async function getUserImages({
+  limit = 9,
+  page = 1,
+  userId,
+}: {
+  limit?: number;
+  page: number;
+  userId: string;
+}) {
   try {
     await connectToDatabase();
 
+    const skipAmount = (Number(page) - 1) * limit;
+
     const images = await populateUser(Image.find({ author: userId }))
       .sort({ updatedAt: -1 })
-      .select('_id title publicId secureURL width height author createdAt updatedAt __v');
+      .skip(skipAmount)
+      .limit(limit);
+
+    const totalImages = await Image.find({ author: userId }).countDocuments();
 
     return {
       data: JSON.parse(JSON.stringify(images)),
+      totalPages: Math.ceil(totalImages / limit),
     };
   } catch (error) {
     handleError(error);
