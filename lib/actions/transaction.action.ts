@@ -58,7 +58,7 @@ export async function createTransaction(transaction: CreateTransactionParams) {
 }
 
 export const checkoutOrderMercadoPago = async (
-  transaction: CheckoutOrderParams
+  transaction: CheckoutTransactionParams
 ) => {
   const amount = Number(transaction.amount);
 

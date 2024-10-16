@@ -1,39 +1,55 @@
+'use client';
 import React from "react";
-import { IEvent } from "@/lib/mongodb/database/models/event.model";
-import { checkoutOrderMercadoPago } from "@/lib/actions/order.actions";
+// import { IEvent } from "@/lib/mongodb/database/models/event.model";
+import { checkoutOrderMercadoPago } from "@/lib/actions/transaction.action";
 import { Button } from "../ui/button";
 import Image from "next/image";
+import { useToast } from "@/hooks/use-toast";
+
 
 const CheckoutMercadoPago = ({
-  event,
-  userId,
-}: {
-  event: IEvent;
-  userId: string;
-}) => {
+    plan,
+    amount,
+    credits,
+    buyerId,
+  }: {
+    plan: string;
+    amount: number;
+    credits: number;
+    buyerId: string;
+  }) => {
+  const { toast } = useToast();
+
   React.useEffect(() => {
     const query = new URLSearchParams(window.location.search);
     if (query.get("success")) {
-      console.log("Order placed! You will receive an email confirmation.");
+      toast({
+        title: "Order placed!",
+        description: "You will receive an email confirmation",
+        duration: 5000,
+        className: "success-toast",
+      });
     }
 
     if (query.get("canceled")) {
-      console.log(
-        "Order canceled -- continue to shop around and checkout when you’re ready."
-      );
+      toast({
+        title: "Order canceled!",
+        description: "Continue to shop around and checkout when you're ready",
+        duration: 5000,
+        className: "error-toast",
+      });
     }
   }, []);
 
   const onCheckout = async () => {
-    const order = {
-      eventTitle: event.title,
-      eventId: event._id,
-      price: event.price || "0",
-      isFree: event.isFree || false,
-      buyerId: userId,
-    };
-
-    await checkoutOrderMercadoPago(order);
+    const transaction = {
+        plan,
+        amount,
+        credits,
+        buyerId,
+      };
+  
+      await checkoutOrderMercadoPago(transaction);
   };
 
   return (
