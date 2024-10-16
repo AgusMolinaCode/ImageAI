@@ -142,6 +142,13 @@ declare type CreateTransactionParams = {
   createdAt: Date;
 };
 
+declare type CheckoutOrderParams = {
+  plan: string;
+  credits: number;
+  amount: number;
+  buyerId: string;
+};
+
 declare type TransformationTypeKey =
   | "restore"
   | "fill"
