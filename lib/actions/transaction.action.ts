@@ -93,6 +93,6 @@ export const checkoutOrderMercadoPago = async (
     redirect(preference.sandbox_init_point!);
   } catch (error) {
     console.error("Error al procesar el pedido con Mercado Pago:", error);
-    throw error; // Re-lanza el error para que pueda ser manejado por el código que llama a esta función
+    throw error;
   }
 };

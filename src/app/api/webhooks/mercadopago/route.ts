@@ -12,7 +12,7 @@ export async function POST(request: NextRequest) {
     .then((data) => data as { data: { id: string } });
 
   const payment = await new Payment(client).get({ id: body.data.id });
-  console.log(payment);
+  
   const transaction = {
     stripeId: payment.id?.toString() || "",
     amount: payment.transaction_amount ? payment.transaction_amount / 100 : 0,
