@@ -1,23 +1,21 @@
-'use client';
+"use client";
 import React from "react";
-// import { IEvent } from "@/lib/mongodb/database/models/event.model";
 import { checkoutOrderMercadoPago } from "@/lib/actions/transaction.action";
 import { Button } from "../ui/button";
 import Image from "next/image";
 import { useToast } from "@/hooks/use-toast";
 
-
 const CheckoutMercadoPago = ({
-    plan,
-    amount,
-    credits,
-    buyerId,
-  }: {
-    plan: string;
-    amount: number;
-    credits: number;
-    buyerId: string;
-  }) => {
+  plan,
+  amount,
+  credits,
+  buyerId,
+}: {
+  plan: string;
+  amount: number;
+  credits: number;
+  buyerId: string;
+}) => {
   const { toast } = useToast();
 
   React.useEffect(() => {
@@ -43,17 +41,17 @@ const CheckoutMercadoPago = ({
 
   const onCheckout = async () => {
     const transaction = {
-        plan,
-        amount,
-        credits,
-        buyerId,
-      };
-  
-      await checkoutOrderMercadoPago(transaction);
+      plan,
+      amount,
+      credits,
+      buyerId,
+    };
+
+    await checkoutOrderMercadoPago(transaction);
   };
 
   return (
-    <form action={onCheckout}>
+    <form action={onCheckout} method="POST">
       <Button type="submit">
         <>
           <Image
@@ -66,9 +64,6 @@ const CheckoutMercadoPago = ({
           <p className="px-2 text-lg">MercadoPago</p>
         </>
       </Button>
-      {/* <button type="submit">
-        {event.isFree ? "Get Ticket MercadoPago" : "Buy Ticket MercadoPago"}
-      </button> */}
     </form>
   );
 };
