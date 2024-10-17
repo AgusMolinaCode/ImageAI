@@ -46,7 +46,7 @@ const CheckoutMercadoPago = ({
       credits,
       buyerId,
     };
-
+    console.log(transaction);
     await checkoutOrderMercadoPago(transaction);
   };
 
