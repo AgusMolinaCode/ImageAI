@@ -71,18 +71,20 @@ const Credits = async () => {
                 </p>
               ) : (
                 <SignedIn>
-                  <Checkout
-                    plan={plan.name}
-                    amount={plan.price}
-                    credits={plan.credits}
-                    buyerId={user._id}
-                  />
-                  <CheckoutMercadoPago
-                    plan={plan.name}
-                    amount={plan.price}
-                    credits={plan.credits}
-                    buyerId={user._id}
-                  />
+                  <div className="flex gap-2 justify-center">
+                    <Checkout
+                      plan={plan.name}
+                      amount={plan.price}
+                      credits={plan.credits}
+                      buyerId={user._id}
+                    />
+                    <CheckoutMercadoPago
+                      plan={plan.name}
+                      amount={plan.price}
+                      credits={plan.credits}
+                      buyerId={user._id}
+                    />
+                  </div>
                 </SignedIn>
               )}
             </li>

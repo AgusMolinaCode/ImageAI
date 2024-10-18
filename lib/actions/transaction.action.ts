@@ -73,7 +73,7 @@ export const checkoutOrderMercadoPago = async (
     });
 
     // Return the URL to the client
-    return preference.sandbox_init_point!;
+    return preference.init_point!;
   } catch (error) {
     console.error("Error al procesar el pedido con Mercado Pago:", error);
     throw error;
