@@ -7,7 +7,7 @@ import Header from "@/components/shared/Header";
 import { plans } from "@/constants";
 import { getUserById } from "@/lib/actions/user.actions";
 import Checkout from "@/components/shared/Checkout";
-import CheckoutMercadoPago from "@/components/shared/CheckoutMercadoPago";
+// import CheckoutMercadoPago from "@/components/shared/CheckoutMercadoPago";
 
 const Credits = async () => {
   const { userId } = auth();
@@ -71,20 +71,18 @@ const Credits = async () => {
                 </p>
               ) : (
                 <SignedIn>
-                  <div className="flex gap-2 justify-center">
-                    <Checkout
+                  <Checkout
+                    plan={plan.name}
+                    amount={plan.price}
+                    credits={plan.credits}
+                    buyerId={user._id}
+                  />
+                  {/* <CheckoutMercadoPago
                       plan={plan.name}
                       amount={plan.price}
                       credits={plan.credits}
                       buyerId={user._id}
-                    />
-                    <CheckoutMercadoPago
-                      plan={plan.name}
-                      amount={plan.price}
-                      credits={plan.credits}
-                      buyerId={user._id}
-                    />
-                  </div>
+                    /> */}
                 </SignedIn>
               )}
             </li>
