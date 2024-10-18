@@ -46,21 +46,20 @@ const CheckoutMercadoPago = ({
       credits,
       buyerId,
     };
-    const redirectUrl = await checkoutOrderMercadoPago(transaction);
-    console.log("Info de la transacción:", transaction);
-    window.location.href = redirectUrl; // Redirect to Mercado Pago
+    await checkoutOrderMercadoPago(transaction);
   };
 
   return (
-    <form onSubmit={(e) => { e.preventDefault(); onCheckout(); }}>
+    <form action={onCheckout} method="POST">
       <Button type="submit">
         <>
           <Image
             src="/assets/icons/mercado-pago.svg"
             alt="Logo MercadoPago"
-            width={28}
-            height={28}
+            width={40}
+            height={40}
           />
+
           <p className="px-2 text-lg">MercadoPago</p>
         </>
       </Button>
