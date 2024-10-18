@@ -8,18 +8,21 @@ const client = new MercadoPagoConfig({
 
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json().then((data) => data as { data: { id: string } });
+    const body = await request
+      .json()
+      .then((data) => data as { data: { id: string } });
 
     const payment = await new Payment(client).get({ id: body.data.id });
     console.log(payment);
 
-    if(payment.status !== "approved") {
+    const { id, transaction_amount, metadata } = payment;
+
     const transaction = {
-      stripeId: payment.id?.toString() || "",
-      amount: payment.transaction_amount ? payment.transaction_amount / 100 : 0,
-      plan: payment.metadata?.plan || "",
-      credits: Number(payment.metadata?.credits) || 0,
-      buyerId: payment.metadata?.buyerId || "",
+      stripeId: id?.toString() || "",
+      amount: transaction_amount ? transaction_amount / 100 : 0,
+      plan: metadata?.plan || "",
+      credits: Number(metadata?.credits) || 0,
+      buyerId: metadata?.buyerId || "",
       createdAt: new Date(),
     };
 
@@ -27,10 +30,12 @@ export async function POST(request: NextRequest) {
 
     const newOrder = await createTransaction(transaction);
     return NextResponse.json({ message: "OK", order: newOrder });
-  }
   } catch (error) {
     console.error("Error processing Mercado Pago webhook:", error);
     const errorMessage = (error as Error).message;
-    return NextResponse.json({ message: "Error", error: errorMessage }, { status: 500 });
+    return NextResponse.json(
+      { message: "Error", error: errorMessage },
+      { status: 500 }
+    );
   }
 }

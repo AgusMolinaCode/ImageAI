@@ -47,6 +47,7 @@ const CheckoutMercadoPago = ({
       buyerId,
     };
     const redirectUrl = await checkoutOrderMercadoPago(transaction);
+    console.log("Info de la transacción:", transaction);
     window.location.href = redirectUrl; // Redirect to Mercado Pago
   };
 
