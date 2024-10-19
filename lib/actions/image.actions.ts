@@ -154,7 +154,7 @@ export async function getAllImages({ limit = 9, page = 1, searchQuery = '' }: {
 
 // GET IMAGES BY USER
 export async function getUserImages({
-  limit = 9,
+  limit = 4,
   page = 1,
   userId,
 }: {
