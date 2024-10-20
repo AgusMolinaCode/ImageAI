@@ -32,12 +32,13 @@ const page = async () => {
     <div>
       <LogoForm action="Add" userId={user._id} />
 
-      <section>
-        <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-3 md:gap-9 xl:grid-cols-4  items-center  px-1">
+      <section className="px-1">
+        <h2 className="text-2xl font-bold mt-8 mb-4">My Logos</h2>
+        <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2 md:grid-cols-3 md:gap-9 xl:grid-cols-4  items-center mb-6">
           {images?.data?.map((image: Image) => (
             <li
               key={image.title}
-              className="w-full rounded-[16px] border-2 border-purple-200/20 p-2 shadow-xl shadow-purple-200/20"
+              className="w-full rounded-[16px] border-2 border-purple-200/20 p-2 shadow-md shadow-purple-200/20"
             >
               <div className="flex flex-col gap-3">
                 <p className="font-bold mt-2">{image.title}</p>

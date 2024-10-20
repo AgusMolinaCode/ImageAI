@@ -16,8 +16,8 @@ import MediaUploader from "./MediaUploader";
 import { addLogo } from "@/lib/actions/logo.actions";
 
 export const formSchema = z.object({
-  title: z.string().min(3, "El título es obligatorio"),
-  publicId: z.string().min(1, "La imagen es obligatoria"),
+  title: z.string().min(3, "The title is required"),
+  publicId: z.string().min(1, "The image is required"),
   secureURL: z.string(),
   width: z.number().optional(),
   height: z.number().optional(),
@@ -81,12 +81,12 @@ const LogoForm = ({ data, userId }: LogoFormProps) => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 px-1">
         <CustomField
           control={form.control}
           name="title"
-          formLabel="Título del Logo"
-          className="w-full"
+          formLabel="Logo Title"
+          className="max-w-xs"
           render={({ field }) => <Input {...field} className="input-field" />}
         />
 
@@ -109,10 +109,12 @@ const LogoForm = ({ data, userId }: LogoFormProps) => {
 
         <Button
           type="submit"
-          className="submit-button capitalize"
           disabled={isSubmitting}
+          className="group flex h-10 items-center justify-center rounded-md border border-blue-600 bg-gradient-to-b from-blue-400 via-blue-500 to-blue-600 px-4 text-neutral-50 shadow-[inset_0_1px_0px_0px_#93c5fd] hover:from-blue-600 hover:via-blue-600 hover:to-blue-600 active:[box-shadow:none]"
         >
-          {isSubmitting ? "Enviando..." : "Guardar Logo"}
+          <span className="block group-active:[transform:translate3d(0,1px,0)]">
+            {isSubmitting ? "Saving..." : "Save Logo"}
+          </span>
         </Button>
       </form>
     </Form>

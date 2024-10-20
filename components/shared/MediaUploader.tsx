@@ -66,7 +66,7 @@ const MediaUploader = ({
       >
         {({ open }) => (
           <div className="flex flex-col gap-4">
-            <h3 className="h3-bold text-dark-600">Original</h3>
+            <h3 className="h3-bold text-dark-600">Upload Image</h3>
 
             {publicId ? (
               <>
@@ -76,7 +76,7 @@ const MediaUploader = ({
                     height={getImageSize(type, image, "height")}
                     src={publicId}
                     alt="image"
-                    sizes={"(max-width: 767px) 100vw, 50vw"}
+                    sizes={"(max-width: 500px) 100vw, 50vw"}
                     placeholder={dataUrl as PlaceholderValue}
                     className="media-uploader_cldImage"
                   />
