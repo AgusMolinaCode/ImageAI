@@ -62,11 +62,6 @@ export function SidebarDemo() {
 
   const link = [
     {
-      label: "My Images",
-      href: "/images",
-      icon: <Images className="text-foreground h-5 w-5 flex-shrink-0" />,
-    },
-    {
       label: "My Logos",
       href: "/logos",
       icon: (

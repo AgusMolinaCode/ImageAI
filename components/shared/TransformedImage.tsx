@@ -76,7 +76,7 @@ const TransformedImage = ({ image, type, title, transformationConfig, isTransfor
           )}
         </div>
       ): (
-        <div className="transformed-placeholder">
+        <div className="flex justify-center text-gray-500 text-sm">
           Transformed Image
         </div>
       )}

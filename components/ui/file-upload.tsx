@@ -31,7 +31,7 @@ export const FileUpload = () => {
     <div className="w-full">
       <motion.div
         whileHover="animate"
-        className="p-10 group/file block rounded-lg cursor-pointer w-full relative overflow-hidden"
+        className="p-10 group/file block rounded-lg cursor-pointer w-full relative overflow-hidden border border-gray-200 dark:border-gray-800"
       >
         <div className="absolute inset-0 [mask-image:radial-gradient(ellipse_at_center,white,transparent)]">
           <GridPattern />
