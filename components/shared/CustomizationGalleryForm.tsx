@@ -19,12 +19,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Label } from "@/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/src/components/ui/radio-group";
 import { Checkbox } from "@/components/ui/checkbox";
 
 const formSchema = z.object({
   imagen: z.string().optional(),
   mostrarFondo: z.boolean(),
   fondo: z.string().optional(),
+  eliminarFondo: z.string().optional(), // Nuevo campo para eliminar fondo
   mostrarTexto: z.boolean(),
   texto: z
     .string()
@@ -84,6 +87,7 @@ const CustomizationGalleryForm: React.FC<LogoCustomizationFormProps> = ({
       posicionLogo: "south_east",
       imagen: "",
       fondo: "background1",
+      eliminarFondo: "no", // Valor por defecto para eliminar fondo
     },
   });
 
@@ -216,6 +220,51 @@ const CustomizationGalleryForm: React.FC<LogoCustomizationFormProps> = ({
               )}
             />
           )}
+
+          <FormField
+            control={form.control}
+            name="eliminarFondo"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-lg font-semibold text-gray-700 dark:text-gray-200">
+                  Remove Background
+                </FormLabel>
+
+                {/* <SelectContent className="bg-white dark:bg-gray-800 rounded-xl shadow-lg">
+                    <SelectItem
+                      key="yes"
+                      value="yes"
+                      className="text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
+                    >
+                      Yes
+                    </SelectItem>
+                    <SelectItem
+                      key="no"
+                      value="no"
+                      className="text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
+                    >
+                      No
+                    </SelectItem>
+                  </SelectContent> */}
+                <RadioGroup
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                  className="bg-white dark:bg-gray-800 rounded-xl flex gap-4"
+                >
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem key="no" value="no" id="no" />
+                    <Label htmlFor="no">No</Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem key="yes" value="yes" id="yes" />
+                    <Label htmlFor="yes">Yes</Label>
+                  </div>
+                </RadioGroup>
+
+                <FormMessage className="text-red-500 dark:text-red-400" />
+              </FormItem>
+            )}
+          />
 
           <FormField
             control={form.control}

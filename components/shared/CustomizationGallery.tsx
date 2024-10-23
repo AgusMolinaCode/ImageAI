@@ -38,6 +38,7 @@ const CustomizationGallery: React.FC<LogoGalleryProps> = ({
   const [selectedBackground, setSelectedBackground] = useState<string | null>(
     null
   );
+  const [removeBackground, setRemoveBackground] = useState<string>("no");
 
   // Modificar la función onSubmit para incluir la imagen de fondo seleccionada
   function onSubmit(values: {
@@ -50,6 +51,7 @@ const CustomizationGallery: React.FC<LogoGalleryProps> = ({
     imagen?: string; // Agregar la imagen seleccionada
     mostrarFondo: boolean; // Agregar para mostrar fondo
     fondo?: string; // Agregar para la imagen de fondo
+    eliminarFondo?: string; // Agregar para eliminar fondo
   }) {
     setShowText(values.mostrarTexto);
     setShowLogo(values.mostrarLogo);
@@ -67,6 +69,7 @@ const CustomizationGallery: React.FC<LogoGalleryProps> = ({
     } else {
       setSelectedBackground(null); // No mostrar fondo si no está seleccionado
     }
+    setRemoveBackground(values.eliminarFondo || "no");
   }
 
   const imageUrl = getCldOgImageUrl({
@@ -108,6 +111,7 @@ const CustomizationGallery: React.FC<LogoGalleryProps> = ({
         : []),
     ],
     underlay: selectedBackground ?? undefined,
+    removeBackground: removeBackground === "yes",
   });
 
   return (

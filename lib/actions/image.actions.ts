@@ -189,24 +189,12 @@ export async function getUserImages({
 }
 
 // GET MYIMAGES BY USER
-export async function getUserMyImages({
-  limit = 9,
-  page = 1,
-  userId,
-}: {
-  limit?: number;
-  page: number;
-  userId: string;
-}) {
+export async function getUserMyImages({ userId }: { userId: string }) {
   try {
     await connectToDatabase();
 
-    const skipAmount = (Number(page) - 1) * limit;
-
     const images = await populateUser(Image.find({ author: userId }))
       .sort({ updatedAt: -1 })
-      .skip(skipAmount)
-      .limit(limit)
       .select(
         "_id title publicId secureURL width height author createdAt updatedAt __v"
       );
@@ -215,7 +203,7 @@ export async function getUserMyImages({
 
     return {
       data: JSON.parse(JSON.stringify(images)),
-      totalPages: Math.ceil(totalImages / limit),
+      totalPages: Math.ceil(totalImages / totalImages), // This will always be 1
     };
   } catch (error) {
     handleError(error);
