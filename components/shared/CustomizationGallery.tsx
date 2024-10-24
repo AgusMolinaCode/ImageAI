@@ -4,6 +4,7 @@ import { getCldOgImageUrl } from "next-cloudinary";
 import Image from "next/image";
 import Header from "./Header";
 import CustomizationGalleryForm from "./CustomizationGalleryForm";
+import { saveAs } from 'file-saver'
 
 interface LogoGalleryProps {
   logos: Array<{
@@ -114,6 +115,10 @@ const CustomizationGallery: React.FC<LogoGalleryProps> = ({
     removeBackground: removeBackground === "yes",
   });
 
+  const downloadImage = () => {
+    saveAs( imageUrl, 'image.jpg') // Put your image URL here.
+  }
+
   return (
     <>
       <Header
@@ -132,7 +137,9 @@ const CustomizationGallery: React.FC<LogoGalleryProps> = ({
             />
           ) : (
             <div className="flex items-center justify-center w-full h-[700px]">
-              <p className="text-lg text-gray-500">Choose an image and start customizing</p>
+              <p className="text-lg text-gray-500">
+                Choose an image and start customizing
+              </p>
             </div>
           )}
         </div>
@@ -140,8 +147,11 @@ const CustomizationGallery: React.FC<LogoGalleryProps> = ({
           logos={logos}
           images={images}
           onSubmit={onSubmit}
+          selectedImage={selectedImage || ""}
+          imageUrl={imageUrl}
         />
       </div>
+      
     </>
   );
 };

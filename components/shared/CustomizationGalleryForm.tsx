@@ -22,6 +22,7 @@ import {
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/src/components/ui/radio-group";
 import { Checkbox } from "@/components/ui/checkbox";
+import { saveAs } from "file-saver";
 
 const formSchema = z.object({
   imagen: z.string().optional(),
@@ -68,12 +69,16 @@ interface LogoCustomizationFormProps {
     publicId: string;
   }>;
   onSubmit: (values: z.infer<typeof formSchema>) => void;
+  selectedImage: string;
+  imageUrl: string;
 }
 
 const CustomizationGalleryForm: React.FC<LogoCustomizationFormProps> = ({
   logos,
   images,
   onSubmit,
+  selectedImage,
+  imageUrl,
 }) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -102,6 +107,10 @@ const CustomizationGalleryForm: React.FC<LogoCustomizationFormProps> = ({
     { value: "south", label: "Bottom Center" },
     { value: "south_east", label: "Bottom Right" },
   ];
+
+  const downloadImage = () => {
+    saveAs(imageUrl, "customized-image.jpg");
+  };
 
   return (
     <div className="max-w-xl md:w-1/2 h-full bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg transition-colors duration-300">
@@ -136,6 +145,35 @@ const CustomizationGalleryForm: React.FC<LogoCustomizationFormProps> = ({
                     ))}
                   </SelectContent>
                 </Select>
+                <FormMessage className="text-red-500 dark:text-red-400" />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="eliminarFondo"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-lg font-semibold text-gray-700 dark:text-gray-200">
+                  Remove Background
+                </FormLabel>
+
+                <RadioGroup
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                  className="bg-white dark:bg-gray-800 rounded-xl flex gap-4"
+                >
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem key="no" value="no" id="no" />
+                    <Label htmlFor="no">No</Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem key="yes" value="yes" id="yes" />
+                    <Label htmlFor="yes">Yes</Label>
+                  </div>
+                </RadioGroup>
+
                 <FormMessage className="text-red-500 dark:text-red-400" />
               </FormItem>
             )}
@@ -220,51 +258,6 @@ const CustomizationGalleryForm: React.FC<LogoCustomizationFormProps> = ({
               )}
             />
           )}
-
-          <FormField
-            control={form.control}
-            name="eliminarFondo"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="text-lg font-semibold text-gray-700 dark:text-gray-200">
-                  Remove Background
-                </FormLabel>
-
-                {/* <SelectContent className="bg-white dark:bg-gray-800 rounded-xl shadow-lg">
-                    <SelectItem
-                      key="yes"
-                      value="yes"
-                      className="text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
-                    >
-                      Yes
-                    </SelectItem>
-                    <SelectItem
-                      key="no"
-                      value="no"
-                      className="text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200"
-                    >
-                      No
-                    </SelectItem>
-                  </SelectContent> */}
-                <RadioGroup
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                  className="bg-white dark:bg-gray-800 rounded-xl flex gap-4"
-                >
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem key="no" value="no" id="no" />
-                    <Label htmlFor="no">No</Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem key="yes" value="yes" id="yes" />
-                    <Label htmlFor="yes">Yes</Label>
-                  </div>
-                </RadioGroup>
-
-                <FormMessage className="text-red-500 dark:text-red-400" />
-              </FormItem>
-            )}
-          />
 
           <FormField
             control={form.control}
@@ -437,6 +430,15 @@ const CustomizationGalleryForm: React.FC<LogoCustomizationFormProps> = ({
           >
             Apply Changes
           </Button>
+          {selectedImage && (
+            <Button
+              type="button"
+              onClick={downloadImage}
+              className="w-full bg-green-500 hover:bg-green-600 text-white py-3 rounded-xl transition-colors duration-300"
+            >
+              Download Image
+            </Button>
+          )}
         </form>
       </Form>
     </div>
