@@ -4,7 +4,6 @@ import { getCldOgImageUrl } from "next-cloudinary";
 import Image from "next/image";
 import Header from "./Header";
 import CustomizationGalleryForm from "./CustomizationGalleryForm";
-import { saveAs } from 'file-saver'
 
 interface LogoGalleryProps {
   logos: Array<{
@@ -114,10 +113,6 @@ const CustomizationGallery: React.FC<LogoGalleryProps> = ({
     underlay: selectedBackground ?? undefined,
     removeBackground: removeBackground === "yes",
   });
-
-  const downloadImage = () => {
-    saveAs( imageUrl, 'image.jpg') // Put your image URL here.
-  }
 
   return (
     <>

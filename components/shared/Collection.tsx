@@ -110,7 +110,7 @@ const Card = ({ image }: { image: IImage }) => {
           height={image.height}
           {...image.config}
           loading="lazy"
-          className="w-[500px] h-[500px] rounded-[10px] border border-slate-600"
+          className=" rounded-[10px] border border-slate-600"
           sizes="(max-width: 767px) 100vw, (max-width: 1279px) 50vw, 33vw"
         />
       </Link>

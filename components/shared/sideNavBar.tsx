@@ -21,11 +21,7 @@ import {
 
 export function SidebarDemo() {
   const links = [
-    {
-      label: "Home",
-      href: "/",
-      icon: <IconHome className="text-foreground h-5 w-5 flex-shrink-0" />,
-    },
+    
     {
       label: "Customize",
       href: "/customization",
@@ -70,7 +66,7 @@ export function SidebarDemo() {
     },
     {
       label: "Profile",
-      href: "/profile",
+      href: "/",
       icon: (
         <CircleUserRound className="text-foreground h-5 w-5 flex-shrink-0" />
       ),
