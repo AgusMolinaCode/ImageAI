@@ -203,7 +203,7 @@ const TransformationForm = ({
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 px-1">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 px-1 mb-4">
         {creditBalance < Math.abs(creditFee) && <InsufficientCreditsModal />}
         <div className="flex flex-col justify-center gap-4 max-w-lg mx-auto">
           <CustomField
@@ -319,10 +319,10 @@ const TransformationForm = ({
           />
         </div>
 
-        <div className="flex flex-col gap-4">
+        <div className="flex items-center justify-center mx-auto gap-4">
           <Button
             type="button"
-            className="submit-button capitalize"
+            className="group flex h-10 items-center justify-center rounded-md border border-blue-600 bg-gradient-to-b from-blue-400 via-blue-500 to-blue-600 px-4 text-neutral-50 shadow-[inset_0_1px_0px_0px_#93c5fd] hover:from-blue-600 hover:via-blue-600 hover:to-blue-600 active:[box-shadow:none]"
             disabled={isTransforming || newTransformation === null}
             onClick={onTransformHandler}
           >
@@ -330,7 +330,7 @@ const TransformationForm = ({
           </Button>
           <Button
             type="submit"
-            className="submit-button capitalize"
+            className="group flex h-10 items-center justify-center rounded-md border border-green-600 bg-gradient-to-b from-green-400 via-green-500 to-green-600 px-4 text-neutral-50  hover:from-green-600 hover:via-green-600 hover:to-green-600 active:[box-shadow:none]"
             disabled={isSubmitting}
           >
             {isSubmitting ? "Submitting..." : "Save Image"}

@@ -20,8 +20,8 @@ const TransformedImage = ({ image, type, title, transformationConfig, isTransfor
   }
 
   return (
-    <div className="flex flex-col gap-4">
-      <div className="flex-between">
+    <div className="flex flex-col gap-4 px-1">
+      <div className="flex gap-2">
         <h3 className="h3-bold text-dark-600">
           Transformed
         </h3>
@@ -36,7 +36,6 @@ const TransformedImage = ({ image, type, title, transformationConfig, isTransfor
               alt="Download"
               width={24}
               height={24}
-              className="pb-[6px]"
             />
           </button>
         )}
