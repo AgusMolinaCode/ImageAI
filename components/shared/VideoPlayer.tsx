@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef } from "react";
+import React from "react";
 
 interface VideoPlayerProps {
   src: string;
@@ -13,30 +13,15 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({
   width = 280,
   height = 280,
 }) => {
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  const handleMouseEnter = () => {
-    if (videoRef.current) {
-      videoRef.current.play();
-    }
-  };
-
-  const handleMouseLeave = () => {
-    if (videoRef.current) {
-      videoRef.current.pause();
-      videoRef.current.currentTime = 0; // Reinicia el video al inicio
-    }
-  };
-
   return (
     <div className="video-container">
       <video
-        ref={videoRef}
         width={width}
         height={height}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
+        autoPlay
+        loop
         muted
+        playsInline
       >
         <source src={src} type="video/mp4" />
         Your browser does not support the video tag.
