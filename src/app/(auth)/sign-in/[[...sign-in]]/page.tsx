@@ -1,7 +1,6 @@
 import React from "react";
 import { SignIn } from "@clerk/nextjs";
 import { Separator } from "@/components/ui/separator";
-import VideoPlayer from "@/components/shared/VideoPlayer";
 import { InfiniteSliderVertical } from "@/components/shared/InfiniteSliderVertical";
 
 const SignInPage = () => {
