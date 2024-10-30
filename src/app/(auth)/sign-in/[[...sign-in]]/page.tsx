@@ -7,8 +7,8 @@ const SignInPage = () => {
   return (
     <div className="relative min-h-screen">
       <div className="absolute inset-0 -z-10 h-full w-full bg-white [background:radial-gradient(125%_125%_at_50%_10%,#fff_40%,#63e_100%)]"></div>
-      <div className="flex flex-col justify-center mx-auto max-w-xl">
-        <h1 className="text-center py-2 text-3xl md:text-6xl text-black font-bold">
+      <div className="flex flex-col justify-center mx-auto max-w-xl px-1">
+        <h1 className="text-center py-2 text-5xl md:text-6xl text-black font-bold">
           Image AI
         </h1>
         <h2 className="text-center py-3 text-md text-gray-600">
@@ -38,16 +38,17 @@ const SignInPage = () => {
         />
         Your browser does not support the video tag.
       </video>
-      <div className="flex justify-center mx-auto items-center gap-10 py-28">
+      <div className="flex flex-wrap   justify-center mx-auto items-center gap-10 py-20 md:py-28">
         <div>
-          <div>
-            <InfiniteSliderVertical />
+          <div className="flex items-center justify-center">
+            <SignIn />
           </div>
         </div>
-        <div className="flex items-center justify-center">
-          <SignIn />
-        </div>
+        <InfiniteSliderVertical />
       </div>
+      <p className="text-center font-semibold pb-4">
+        Developed by <a className="hover:text-gray-900 duration-200" target="_blank" href="https://www.linkedin.com/in/agustin-molina-994635138/">Agustin Molina</a>
+      </p>
     </div>
   );
 };

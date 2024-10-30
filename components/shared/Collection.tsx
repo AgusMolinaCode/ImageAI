@@ -60,8 +60,8 @@ export const Collection = ({
           ))}
         </ul>
       ) : (
-        <div className="collection-empty">
-          <p className="p-20-semibold">Empty List</p>
+        <div className="flex justify-center mx-auto h-screen">
+          <p className="text-xl font-semibold">Empty List</p>
         </div>
       )}
 

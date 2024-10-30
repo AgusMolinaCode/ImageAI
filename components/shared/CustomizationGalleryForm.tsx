@@ -127,6 +127,7 @@ const CustomizationGalleryForm: React.FC<LogoCustomizationFormProps> = ({
                 <Select
                   onValueChange={field.onChange}
                   defaultValue={field.value}
+                  disabled={images.length === 0} // Deshabilitar si no hay imágenes
                 >
                   <FormControl>
                     <SelectTrigger className="w-full p-3 border rounded-xl bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-gray-100">
@@ -427,6 +428,7 @@ const CustomizationGalleryForm: React.FC<LogoCustomizationFormProps> = ({
           <Button
             type="submit"
             className="w-full bg-blue-500 hover:bg-blue-600 text-white py-3 rounded-xl transition-colors duration-300"
+            disabled={images.length === 0}
           >
             Apply Changes
           </Button>
