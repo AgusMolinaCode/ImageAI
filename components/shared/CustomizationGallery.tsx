@@ -131,7 +131,7 @@ const CustomizationGallery: React.FC<LogoGalleryProps> = ({
               className="w-[700px] h-[700px] object-cover"
             />
           ) : (
-            <div className="flex items-center justify-center w-full h-[700px]">
+            <div className="flex items-center justify-center w-full h-[280px]">
               <p className="text-lg text-gray-500">
                 Choose an image and start customizing
               </p>
