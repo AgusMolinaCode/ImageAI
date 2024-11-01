@@ -1,0 +1,11 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: imageai
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: development
+    
